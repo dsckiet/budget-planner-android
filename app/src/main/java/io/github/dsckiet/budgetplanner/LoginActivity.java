@@ -69,27 +69,29 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startSignIn(){
-        String email=emailEt.getText().toString();
-        String password=passwordEt.getText().toString();
-
+//        String email=emailEt.getText().toString();
+//        String password=passwordEt.getText().toString();
 //
-            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//             if(!validateEmail() | !validatePassword() ){
-//            return;
+////
+//            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+////             if(!validateEmail() | !validatePassword() ){
+////            return;
+////        }
+////        else {   @Override
+//                public void onComplete(@NonNull Task<AuthResult> task) {
+//                    if(!task.isSuccessful()){
+////                        Snackbar.make(findViewById(R.id.snackbar), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this,"SignIn failed",Toast.LENGTH_LONG).show();
+//                    }else {
+//                        startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+//                        finish();
+//                        Toast.makeText(LoginActivity.this,"SignIn Successfully",Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//            });
 //        }
-//        else {   @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(!task.isSuccessful()){
-//                        Snackbar.make(findViewById(R.id.snackbar), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this,"SignIn failed",Toast.LENGTH_LONG).show();
-                    }else {
-                        startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
-                        Toast.makeText(LoginActivity.this,"SignIn Successfully",Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-//        }
 
     }
 }
