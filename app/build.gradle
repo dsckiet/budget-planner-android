@@ -34,6 +34,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.+'
     implementation 'com.google.android.gms:play-services-auth:16.+'
 
+    implementation 'com.github.bmarrdev:android-DecoView-charting:v1.2'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

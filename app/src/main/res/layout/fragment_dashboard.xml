@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Dashboard"
+                android:fontFamily="@font/montserrat"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
@@ -33,23 +34,121 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
-                android:padding="2dp"
                 app:cardCornerRadius="6dp"
                 app:cardElevation="4dp"
                 app:cardMaxElevation="6dp"
                 app:cardPreventCornerOverlap="false"
-                app:cardBackgroundColor="@android:color/holo_blue_dark"
                 android:minHeight="300dp">
 
-                <!--<ImageView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@drawable/card_view_bg_money"-->
-                <!--android:scaleType="fitXY"/>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    >
+
+            <com.hookedonplay.decoviewlib.DecoView xmlns:custom="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/dynamic_arc_view"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                custom:dv_lineWidth="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cash_card_dashboard"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardMaxElevation="6dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#FFAA00"
+                        android:fontFamily="@font/montserrat"
+                        android:gravity="center"
+                        android:text="cash"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="18dp" />
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/online_card_dashboard"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardMaxElevation="6dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#DF4141"
+                        android:fontFamily="@font/montserrat"
+                        android:gravity="center"
+                        android:text="online"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="18dp" />
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+            <android.support.v7.widget.CardView
+                android:id="@+id/savings_card_dashboard"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardMaxElevation="6dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#55D880"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="savings"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp" />
+
+            </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+        <TextView
+            android:id="@+id/textPercentage"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="130dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:text="%age Left"
+            android:textSize="20dp" />
+
+
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/card_view_budget_money"
+                android:id="@+id/budget_card_dashboard"
                 android:layout_width="match_parent"
                 android:layout_height="125dp"
                 android:layout_marginTop="16dp"
@@ -76,6 +175,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Budget"
+                        android:fontFamily="@font/montserrat"
                         android:textColor="#ffffff"
                         android:textSize="28sp"
                         android:textStyle="bold"
@@ -88,6 +188,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_view_budget_title"
                         android:text="Rs. 2500"
+                        android:fontFamily="@font/montserrat"
                         android:textSize="36sp"
                         android:textColor="#ffffff"
                         android:paddingLeft="25dp"
@@ -97,41 +198,43 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_view_transactions"
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="6dp"
-                app:cardElevation="4dp"
-                app:cardMaxElevation="6dp"
-                app:cardPreventCornerOverlap="false"
-                android:minHeight="100dp"
-                >
+            <!--<android.support.v7.widget.CardView-->
+                <!--android:id="@+id/card_view_transactions"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--app:cardCornerRadius="6dp"-->
+                <!--app:cardElevation="4dp"-->
+                <!--app:cardMaxElevation="6dp"-->
+                <!--app:cardPreventCornerOverlap="false"-->
+                <!--android:minHeight="100dp"-->
+                <!--&gt;-->
 
+            <TextView
+                android:id="@+id/text_view_transaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Transactions"
+                android:fontFamily="@font/montserrat"
+                android:layout_margin="8dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="22dp"
-                    android:paddingTop="8dp"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="4dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/text_view_transaction"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Transactions"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-                        android:layout_marginBottom="8dp"
-                        />
+
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view_transaction"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="left"/>
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
+
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

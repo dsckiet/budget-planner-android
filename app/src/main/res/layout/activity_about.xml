@@ -1,23 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="About page"
-        android:layout_below="@id/image_cross"
-        android:textSize="36sp"
-        />
-    <ImageView
-        android:id="@+id/image_cross"
-        android:layout_width="40dp"
-        android:layout_margin="5dp"
-        android:layout_height="40dp"
-        android:background="@drawable/ic_logo"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"
-        />
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="About Us"
+            android:layout_margin="15dp"
+            android:gravity="center_vertical"
+            android:textSize="20dp"
+            android:fontFamily="@font/montserrat"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="120dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Budget Planner App"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:id="@+id/head"/>
+
+        <View
+            android:layout_width="230dp"
+            android:layout_height="4dp"
+            android:outlineAmbientShadowColor="#2185AB"
+            android:outlineSpotShadowColor="#2185AB"
+            android:background="#2185AB"
+            android:layout_marginTop="170dp"
+            android:layout_marginLeft="25dp"/>
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="Version"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/montserrat"
+            android:textSize="15dp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="190dp"/>
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="1.0"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/montserrat"
+            android:textSize="20dp"
+            android:layout_marginTop="210dp"/>
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:text="Last Update"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/montserrat"
+            android:textSize="15dp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="240dp"/>
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:text="April 3rd, 2019"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/montserrat"
+            android:textSize="20dp"
+            android:layout_marginTop="260dp"/>
+    </RelativeLayout>
+
+</ScrollView>
