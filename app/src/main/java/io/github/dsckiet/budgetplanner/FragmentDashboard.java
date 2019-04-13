@@ -1,8 +1,10 @@
 package io.github.dsckiet.budgetplanner;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -33,6 +35,7 @@ public class FragmentDashboard extends Fragment {
     private CardView cash_card;
     private CardView online_card;
     private CardView savings_card;
+    private FloatingActionButton fab;
 
 
     public FragmentDashboard() {
@@ -73,6 +76,14 @@ public class FragmentDashboard extends Fragment {
         cash_card = view.findViewById(R.id.cash_card_dashboard);
         online_card = view.findViewById(R.id.online_card_dashboard);
         savings_card = view.findViewById(R.id.savings_card_dashboard);
+        fab = view.findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),AddCashTransactionActivity.class));
+            }
+        });
         createBackSeries();
         createBackSeries1();
         createBackSeries2();

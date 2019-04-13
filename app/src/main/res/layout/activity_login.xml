@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +11,7 @@
 
         <View
             android:layout_width="wrap_content"
-            android:layout_height="420dp"
+            android:layout_height="340dp"
             android:background="@drawable/ic_illustration_one" />
 
         <LinearLayout
@@ -19,95 +19,135 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingHorizontal="36dp"
-            android:paddingTop="36dp">
+            android:paddingTop="24dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="-6dp"
-                android:src="@drawable/ic_arrow_back_black" />
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="-6dp"-->
+                <!--android:src="@drawable/ic_arrow_back_black" />-->
 
             <TextView
-                android:id="@+id/signin"
+                android:id="@+id/sign_in_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/montserrat"
                 android:text="Sign In"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardview"
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="4dp"
-                app:cardMaxElevation="4dp">
+                android:layout_marginTop="22dp"
+                >
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#fff"
-                    android:padding="8dp">
+                    android:background="@drawable/edittext_border"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:padding="2dp">
 
-                    <android.support.design.widget.TextInputLayout
+                    <EditText
+                        android:id="@+id/edittext_email_login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:errorEnabled="true">
+                        android:fontFamily="@font/montserrat"
+                        android:textSize="20sp"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true" />
 
-                        <EditText
-                            android:id="@+id/et_email"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat"
-                            android:hint="E-mail address"
-                            android:inputType="textEmailAddress" />
+                </LinearLayout>
 
-                    </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text=" E-mail address "
+                    android:fontFamily="@font/montserrat"
+                    android:layout_marginLeft="15dp"
+                    android:background="#ffffff"
+                    android:textSize="18sp" />
 
-                </RelativeLayout>
+            </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="4dp"
-                app:cardMaxElevation="4dp">
+                android:layout_marginTop="22dp"
+                >
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#fff"
-                    android:padding="8dp">
+                    android:background="@drawable/edittext_border"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:padding="2dp">
 
-                    <android.support.design.widget.TextInputLayout
+                    <EditText
+                        android:id="@+id/edittext_password_login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:errorEnabled="true"
-                        app:passwordToggleEnabled="true">
+                        android:fontFamily="@font/montserrat"
+                        android:textSize="20sp"
+                        android:inputType="textPassword"
+                        android:singleLine="true" />
 
-                        <EditText
-                            android:id="@+id/et_password"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat"
-                            android:hint="Password"
-                            android:inputType="textPassword"
-                            android:singleLine="true" />
-                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
 
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:fontFamily="@font/montserrat"
+                    android:text=" Password "
+                    android:layout_marginLeft="15dp"
+                    android:background="#ffffff"
+                    android:textSize="18sp" />
 
+            </RelativeLayout>
+            <!--<android.support.v7.widget.CardView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--app:cardCornerRadius="4dp"-->
+                <!--app:cardMaxElevation="4dp">-->
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="#fff"-->
+                    <!--android:padding="8dp">-->
+
+                    <!--<android.support.design.widget.TextInputLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--app:errorEnabled="true"-->
+                        <!--app:passwordToggleEnabled="true">-->
+
+                        <!--<EditText-->
+                            <!--android:id="@+id/et_password"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:fontFamily="@font/montserrat"-->
+                            <!--android:hint="Password"-->
+                            <!--android:inputType="textPassword"-->
+                            <!--android:singleLine="true" />-->
+                    <!--</android.support.design.widget.TextInputLayout>-->
+
+                <!--</RelativeLayout>-->
+            <!--</android.support.v7.widget.CardView>-->
 
             <android.support.v7.widget.CardView
                 android:id="@+id/signin_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="90dp"
                 android:layout_marginBottom="8dp"
                 app:cardCornerRadius="4dp"
                 app:cardMaxElevation="4dp">
@@ -157,6 +197,7 @@
                 android:fontFamily="@font/montserrat"
                 android:onClick="newaccount"
                 android:text="create new account?"
+                android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -181,7 +222,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/montserrat"
             android:text="Developer Student Clubs"
             android:textAlignment="center"
@@ -189,4 +230,4 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

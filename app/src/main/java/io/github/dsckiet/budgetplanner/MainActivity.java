@@ -1,5 +1,6 @@
 package io.github.dsckiet.budgetplanner;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
@@ -11,9 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationView navigationView;
+    private BottomNavigationViewEx navigationView;
 
 
     @Override
@@ -22,7 +25,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //bottom navigation
-        navigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);
+        navigationView = (BottomNavigationViewEx) findViewById(R.id.bottom_nav);
+        navigationView.enableAnimation(false);
+        navigationView.enableShiftingMode(true);
+        navigationView.enableItemShiftingMode(false);
+//        navigationView.setItemBackground(0,R.color.colorPrimary);
+//        navigationView.setItemBackground(2,R.color.colorPrimary);
         navigationView.setOnNavigationItemSelectedListener(navListener);
         replaceFragment(new FragmentDashboard());
         getSupportFragmentManager()
@@ -94,4 +102,5 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
 }
