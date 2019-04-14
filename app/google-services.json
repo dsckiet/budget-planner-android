@@ -21,6 +21,18 @@
             "package_name": "io.github.dsckiet.budgetplanner",
             "certificate_hash": "622d09a811b7a03787cc5413b0699b2fc7f622e2"
           }
+        },
+        {
+          "client_id": "96843913328-cgrajv3givsdacq4bab6bjakp2t50jms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.dsckiet.budgetplanner",
+            "certificate_hash": "1f06dda329e153425c86820162ccba5624b5c5e0"
+          }
+        },
+        {
+          "client_id": "96843913328-gvlrtn0vkaj31irumsujvrnsno65sf1e.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [

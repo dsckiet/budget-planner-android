@@ -11,16 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".RegisterActivity" />
         <activity android:name=".AddCashTransactionActivity" />
         <activity
             android:name=".EditBudgetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditProfileActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".LoginActivity"
+            android:name=".AuthActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TransactionsActivity"

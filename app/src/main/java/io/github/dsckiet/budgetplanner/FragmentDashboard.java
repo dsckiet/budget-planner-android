@@ -57,11 +57,11 @@ public class FragmentDashboard extends Fragment {
 
         final ArrayList<TransactionRecyclerView> transactionList = new ArrayList<>();
         recyclerViewTransaction = view.findViewById(R.id.recycler_view_transaction);
-        transactionList.add(new TransactionRecyclerView("PayTM","Rs. 110"));
-        transactionList.add(new TransactionRecyclerView("Cash","Rs. 20"));
-        transactionList.add(new TransactionRecyclerView("PhonePe","Rs. 80"));
-        transactionList.add(new TransactionRecyclerView("Cash","Rs. 80"));
-        transactionList.add(new TransactionRecyclerView("Google Pay","Rs. 60"));
+        transactionList.add(new TransactionRecyclerView("Online", "Rs. 110"));
+        transactionList.add(new TransactionRecyclerView("Offline", "Rs. 20"));
+        transactionList.add(new TransactionRecyclerView("Online", "Rs. 80"));
+        transactionList.add(new TransactionRecyclerView("Offline", "Rs. 80"));
+        transactionList.add(new TransactionRecyclerView("Offlinee", "Rs. 600"));
 
         mAdapter = new TransactionAdapter(transactionList);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(FragmentDashboard.this.getActivity());

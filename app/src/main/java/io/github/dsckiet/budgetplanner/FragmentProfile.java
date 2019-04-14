@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -33,18 +32,18 @@ public class FragmentProfile extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_profile,container,false);
 
-        edit_profile_card = rootView.findViewById(R.id.edit_profile_card);
+//        edit_profile_card = rootView.findViewById(R.id.edit_profile_card);
         edit_budget_card = rootView.findViewById(R.id.edit_budget_card);
 
 
         //for edit profile section
-        edit_profile_card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(),EditProfileActivity.class));
-                //need to implement finish
-            }
-        });
+//        edit_profile_card.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(getContext(),EditProfileActivity.class));
+//                //need to implement finish
+//            }
+//        });
 
         //for edit budget section
         edit_budget_card.setOnClickListener(new View.OnClickListener() {
