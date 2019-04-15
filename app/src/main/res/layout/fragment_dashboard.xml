@@ -56,28 +56,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
+                        android:layout_marginHorizontal="32dp"
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.CardView
                             android:id="@+id/cash_card_dashboard"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
-                            android:layout_marginLeft="30dp"
                             android:layout_marginTop="8dp"
-                            android:layout_marginRight="10dp"
                             android:layout_marginBottom="4dp"
                             android:layout_weight="1"
                             app:cardCornerRadius="8dp"
-                            app:cardMaxElevation="6dp">
+                            android:layout_marginRight="12dp"
+                            app:cardElevation="6dp">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="#FFAA00"
+                                android:background="@color/colorGoogleYellow"
                                 android:fontFamily="@font/montserrat"
                                 android:gravity="center"
                                 android:text="cash"
                                 android:textAllCaps="false"
+                                android:textStyle="bold"
                                 android:textColor="@android:color/white"
                                 android:textSize="16sp" />
 
@@ -86,22 +87,22 @@
                         <android.support.v7.widget.CardView
                             android:id="@+id/online_card_dashboard"
                             android:layout_width="0dp"
+                            android:layout_marginLeft="12dp"
                             android:layout_height="40dp"
-                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="8dp"
-                            android:layout_marginRight="30dp"
                             android:layout_marginBottom="4dp"
                             android:layout_weight="1"
                             app:cardCornerRadius="8dp"
-                            app:cardMaxElevation="6dp">
+                            app:cardElevation="6dp">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="#DF4141"
+                                android:background="@color/colorGoogleRed"
                                 android:fontFamily="@font/montserrat"
                                 android:gravity="center"
                                 android:text="online"
+                                android:textStyle="bold"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white"
                                 android:textSize="16sp" />
@@ -113,18 +114,20 @@
                     <android.support.v7.widget.CardView
                         android:id="@+id/savings_card_dashboard"
                         android:layout_width="130dp"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
                         android:layout_marginBottom="8dp"
                         app:cardCornerRadius="8dp"
                         app:cardMaxElevation="6dp">
 
                         <TextView
+                            android:background="@color/colorGoogleGreen"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#55D880"
+                            android:padding="8dp"
                             android:fontFamily="@font/montserrat"
                             android:gravity="center"
+                            android:textStyle="bold"
                             android:text="savings"
                             android:textAllCaps="false"
                             android:textColor="@android:color/white"
@@ -172,7 +175,7 @@
                         android:fontFamily="@font/montserrat"
                         android:text="Budget"
                         android:textColor="#ffffff"
-                        android:textSize="28sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -183,7 +186,7 @@
                         android:fontFamily="@font/montserrat"
                         android:text="Rs. 2500"
                         android:textColor="#ffffff"
-                        android:textSize="36sp"
+                        android:textSize="28sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>

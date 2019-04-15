@@ -1,79 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/colorWhite"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:text="About Us"
-            android:layout_margin="15dp"
-            android:gravity="center_vertical"
-            android:textSize="20dp"
-            android:fontFamily="@font/montserrat"
-            android:paddingLeft="10dp" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="120dp"
-            android:fontFamily="@font/montserrat"
-            android:text="Budget Planner App"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:id="@+id/head"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <View
-            android:layout_width="230dp"
-            android:layout_height="4dp"
-            android:outlineAmbientShadowColor="#2185AB"
-            android:outlineSpotShadowColor="#2185AB"
-            android:background="#2185AB"
-            android:layout_marginTop="170dp"
-            android:layout_marginLeft="25dp"/>
+            <!--<TextView-->
+            <!--android:id="@+id/text_title_dashboard"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:fontFamily="@font/montserrat"-->
+            <!--android:text="About Us"-->
+            <!--android:textColor="@color/colorPrimary"-->
+            <!--android:textSize="24sp"-->
+            <!--android:textStyle="bold" />-->
 
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:text="Version"
-            android:layout_marginLeft="25dp"
-            android:fontFamily="@font/montserrat"
-            android:textSize="15dp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="190dp"/>
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:text="1.0"
-            android:layout_marginLeft="25dp"
-            android:fontFamily="@font/montserrat"
-            android:textSize="20dp"
-            android:layout_marginTop="210dp"/>
-        <TextView
-            android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:text="Last Update"
-            android:layout_marginLeft="25dp"
-            android:fontFamily="@font/montserrat"
-            android:textSize="15dp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="240dp"/>
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:text="April 3rd, 2019"
-            android:layout_marginLeft="25dp"
-            android:fontFamily="@font/montserrat"
-            android:textSize="20dp"
-            android:layout_marginTop="260dp"/>
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/dsc" />
 
-</ScrollView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="KIET Group of Institutions"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat"
+                android:text="About Us"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="1dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/about"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Version"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="1dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/version"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Website"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="1dp"
+                android:autoLink="web"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/website"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Contributors"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="1dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/contributors"
+                android:textColor="@color/colorAccent" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

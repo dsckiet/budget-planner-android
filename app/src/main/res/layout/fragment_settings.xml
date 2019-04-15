@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".FragmentSettings">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:padding="16dp"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/text_title_dashboard"
@@ -17,8 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
-            android:text="Settings"
             android:fontFamily="@font/montserrat"
+            android:text="Settings"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -29,27 +30,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="30dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
+            android:paddingLeft="24dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
 
             <ImageView
                 android:id="@+id/icon_setting_1"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_share" />
+                android:background="@drawable/ic_share_black_24dp" />
 
             <TextView
                 android:id="@+id/text_setting_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:gravity="center_vertical"
                 android:paddingLeft="30dp"
-                android:fontFamily="@font/montserrat"
-                android:textColor="@color/colorAccent"
                 android:text="Share App"
-                android:textSize="20sp"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
@@ -68,27 +69,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="30dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
+            android:paddingLeft="24dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
 
             <ImageView
                 android:id="@+id/icon_setting_2"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_feedback" />
+                android:background="@drawable/ic_feedback_black_24dp" />
 
             <TextView
                 android:id="@+id/text_setting_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:gravity="center_vertical"
                 android:paddingLeft="30dp"
                 android:text="Feedback"
-                android:fontFamily="@font/montserrat"
-                android:textSize="20sp"
                 android:textColor="@color/colorAccent"
+                android:textSize="16sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
@@ -107,27 +108,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="30dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
+            android:paddingLeft="24dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
 
             <ImageView
                 android:id="@+id/icon_setting_3"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_about" />
+                android:background="@drawable/ic_info_outline_black_24dp" />
 
             <TextView
                 android:id="@+id/text_setting_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:gravity="center_vertical"
                 android:paddingLeft="30dp"
                 android:text="About"
-                android:fontFamily="@font/montserrat"
-                android:textSize="20sp"
                 android:textColor="@color/colorAccent"
+                android:textSize="16sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
@@ -146,27 +147,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="30dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
+            android:paddingLeft="24dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
 
             <ImageView
                 android:id="@+id/icon_setting_4"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_star" />
+                android:background="@drawable/ic_star_border_black_24dp" />
 
             <TextView
                 android:id="@+id/text_setting_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:gravity="center_vertical"
                 android:paddingLeft="30dp"
                 android:text="Rate on Google play"
-                android:textSize="20sp"
-                android:fontFamily="@font/montserrat"
                 android:textColor="@color/colorAccent"
+                android:textSize="16sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
@@ -185,27 +186,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="30dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
+            android:paddingLeft="24dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
 
             <ImageView
                 android:id="@+id/icon_setting_5"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_sign_out" />
+                android:background="@drawable/ic_phonelink_lock_black_24dp" />
 
             <TextView
                 android:id="@+id/text_setting_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:gravity="center_vertical"
                 android:paddingLeft="30dp"
                 android:text="Sign out"
-                android:textSize="20sp"
-                android:fontFamily="@font/montserrat"
                 android:textColor="@color/colorAccent"
+                android:textSize="16sp"
                 android:textStyle="normal" />
 
         </LinearLayout>

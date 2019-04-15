@@ -155,10 +155,10 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
-                android:layout_width="140dp"
-                android:layout_height="128dp"
+                android:layout_width="108dp"
+                android:layout_height="108dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="88dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/samplecontact" />
 
