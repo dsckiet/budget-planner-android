@@ -229,7 +229,30 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="left" />
             </LinearLayout>
+            <android.support.v7.widget.CardView
+                android:id="@+id/more_transaction"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:cardMaxElevation="6dp">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DF4141"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="online"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 

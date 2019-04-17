@@ -31,6 +31,51 @@
           }
         },
         {
+          "client_id": "96843913328-bhk1ua8nuohgmoni35etovq3pdpqbblj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.dsckiet.budgetplanner",
+            "certificate_hash": "7da30b654a6f6fdbb40eea2bfd2df6a56b97d689"
+          }
+        },
+        {
+          "client_id": "96843913328-gvlrtn0vkaj31irumsujvrnsno65sf1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAXeCsLFUIng1Z3uhGLL0UzRhrUC-eUMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "96843913328-gvlrtn0vkaj31irumsujvrnsno65sf1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96843913328:android:d3c50b3aa43627e5",
+        "android_client_info": {
+          "package_name": "tech.dsckiet.budgetbucket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "96843913328-j3g84atjrrubio8vob94q189miqffj6n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tech.dsckiet.budgetbucket",
+            "certificate_hash": "1f06dda329e153425c86820162ccba5624b5c5e0"
+          }
+        },
+        {
           "client_id": "96843913328-gvlrtn0vkaj31irumsujvrnsno65sf1e.apps.googleusercontent.com",
           "client_type": 3
         }
