@@ -23,9 +23,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FragmentSettings extends Fragment {
 
     private LinearLayout setting_share,setting_feedback,setting_about,setting_rate_us,setting_sign_out;

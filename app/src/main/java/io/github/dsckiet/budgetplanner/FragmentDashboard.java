@@ -22,6 +22,8 @@ import com.hookedonplay.decoviewlib.events.DecoEvent;
 
 import java.util.ArrayList;
 
+import tech.dsckiet.budgetbucket.R;
+
 
 public class FragmentDashboard extends Fragment {
 
@@ -36,6 +38,7 @@ public class FragmentDashboard extends Fragment {
     private CardView online_card;
     private CardView savings_card;
     private FloatingActionButton fab;
+
 
 
     public FragmentDashboard() {

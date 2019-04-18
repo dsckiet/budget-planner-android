@@ -35,7 +35,6 @@ public class AddCashTransactionActivity extends AppCompatActivity {
         return mail;
     }
 
-
     String type = "offline";
     String URL_POST="https://tranquil-coast-71727.herokuapp.com/api/v1/add_transaction/" +mail();
     @Override

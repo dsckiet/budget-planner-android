@@ -37,6 +37,7 @@ public class FragmentDashboard extends Fragment {
     private CardView savings_card;
     private FloatingActionButton fab;
     private CardView more_transactions_card;
+    private int onlineAmount=200,offlineAmount=500,budgetAmount = 1000 , leftAmount = 300,savings = 1;
 
     public FragmentDashboard() {
         // Required empty public constructor
@@ -77,6 +78,7 @@ public class FragmentDashboard extends Fragment {
         online_card = view.findViewById(R.id.online_card_dashboard);
         savings_card = view.findViewById(R.id.savings_card_dashboard);
         fab = view.findViewById(R.id.fab);
+
         more_transactions_card = view.findViewById(R.id.more_transaction);
         more_transactions_card.setOnClickListener(new View.OnClickListener() {
             @Override

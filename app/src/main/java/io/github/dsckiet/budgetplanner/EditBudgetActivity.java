@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
+import tech.dsckiet.budgetbucket.R;
+
 public class EditBudgetActivity extends AppCompatActivity {
 
     private ImageView backArrow;

@@ -13,15 +13,39 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class SMSReceiver extends BroadcastReceiver {
 
     private Context mContext;
     private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
     private static final String TAG = "SmsBroadcastReceiver";
-    private String msg, phoneno, recievedMsgTrans, realComapanyPhn,m, debitedMsgText;
+    private String msg, phoneno, recievedMsgTrans, realComapanyPhn, m, debitedMsgText;
+
+    private FirebaseAuth mAuth;
+
+    private String mail() {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String mail = user.getEmail();
+        return mail;
+    }
+
+    String type = "online";
+    String URL_POST = "https://tranquil-coast-71727.herokuapp.com/api/v1/add_transaction/" + mail();
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, Intent intent) {
 
         Log.i(TAG, "Intent Received: " + intent.getAction());
 
@@ -44,7 +68,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     }
                     msg = message[i].getMessageBody();
                     phoneno = message[i].getOriginatingAddress();
-                    if(isDebited(msg)){
+                    if (isDebited(msg)) {
                         recievedMsgTrans = getTransactionAmt(msg);
                     } else recievedMsgTrans = "is a credit message ";
 //                    if(isLegalCompanyText(phoneno)){
@@ -58,9 +82,33 @@ public class SMSReceiver extends BroadcastReceiver {
                 }
 
                 // it helps to show/record messages from company(not local numbers)
-                if(TransacFrom(phoneno))
-                    Toast.makeText(context, "Mesg : " + recievedMsgTrans + "\nNumber : " + phoneno, Toast.LENGTH_LONG).show();
+//                if(TransacFrom(phoneno))
+                Toast.makeText(context, "Mesg : " + recievedMsgTrans + "\nNumber : " + phoneno, Toast.LENGTH_LONG).show();
                 //addNotification();
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST, new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "onResponse: " + "DATA PUSHED" );
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("amount", recievedMsgTrans);
+                        params.put("type", type);
+                        return params;
+                    }
+                };
+
+                RequestQueue requestQueue = Volley.newRequestQueue(context);
+                requestQueue.add(stringRequest);
             }
         }
 
@@ -144,8 +192,6 @@ public class SMSReceiver extends BroadcastReceiver {
         Boolean returnValue = false;
         if(fromAmazon(inputAddress))
             returnValue = true;
-        else if(fromDomino(inputAddress))
-            returnValue = true;
         else if(fromFlipkart(inputAddress))
             returnValue = true;
         else if(fromMyntra(inputAddress))
@@ -219,19 +265,6 @@ public class SMSReceiver extends BroadcastReceiver {
         String input = inputAddress.toLowerCase();
         for(int i=0; i < input.length()-4; i++){
             if(input.substring(i,i + 5).equals(type)){
-                returnValue = true;
-                break;
-            } else
-                returnValue = false;
-        }
-        return returnValue;
-    }
-    private static Boolean fromDomino(String inputAddress){
-        Boolean returnValue = false;
-        String type = "domino";
-        String input = inputAddress.toLowerCase();
-        for(int i=0; i < input.length()-5; i++){
-            if(input.substring(i,i + 6).equals(type)){
                 returnValue = true;
                 break;
             } else

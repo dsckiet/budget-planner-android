@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -60,10 +61,6 @@ public class TransactionsActivity extends AppCompatActivity {
 //        recyclerViewTransactionMore.setAdapter(mAdapter);
 
 
-        recyclerViewTransactionMore = findViewById(R.id.recycler_view_more_transaction);
-        recyclerViewTransactionMore.setHasFixedSize(true);
-        recyclerViewTransactionMore.setLayoutManager(new LinearLayoutManager(this));
-
         mMoreTransactionList = new ArrayList<>();
 
         mQueue = Volley.newRequestQueue(this);
@@ -82,13 +79,24 @@ public class TransactionsActivity extends AppCompatActivity {
                                 JSONObject hit = jsonArray.getJSONObject(i);
 
                                 String type = hit.getString("type");
-                                int amount = hit.getInt("amount");
+                                String amount = hit.getString("amount");
 
+                                Log.e("Skipping", "onResponse: " + "YES");
                                 mMoreTransactionList.add(new MoreTransactionItem(type, amount));
 
                             }
+                            recyclerViewTransactionMore = findViewById(R.id.recycler_view_more_transaction);
+                            recyclerViewTransactionMore.setHasFixedSize(true);
+                            LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+                            llm.setOrientation(LinearLayoutManager.VERTICAL);
+                            recyclerViewTransactionMore.setLayoutManager(llm);
+
+
                             mMoreAdapter = new MoreTransactionAdapter(TransactionsActivity.this, mMoreTransactionList);
+//                            recyclerViewTransactionMore.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
                             recyclerViewTransactionMore.setAdapter(mMoreAdapter);
+                            mMoreAdapter.notifyDataSetChanged();
 
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import tech.dsckiet.budgetbucket.R;
+
 public class MoreTransactionAdapter extends RecyclerView.Adapter<MoreTransactionAdapter.MoreTransactionViewHolder> {
 
     private Context mContext;

@@ -1,7 +1,6 @@
 package tech.dsckiet.budgetbucket;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,27 +11,26 @@ import java.util.ArrayList;
 
 public class MoreTransactionAdapter extends RecyclerView.Adapter<MoreTransactionAdapter.MoreTransactionViewHolder> {
 
-    private Context mContext;
     private ArrayList<MoreTransactionItem> mMoreTransactionList;
 
-    public MoreTransactionAdapter(Context context, ArrayList<MoreTransactionItem> moreTransactionList) {
-        mContext = context;
+    public MoreTransactionAdapter(TransactionsActivity transactionsActivity, ArrayList<MoreTransactionItem> moreTransactionList) {
         mMoreTransactionList = moreTransactionList;
     }
 
-    @NonNull
+
     @Override
-    public MoreTransactionViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.transaction_card,viewGroup,false);
+    public MoreTransactionViewHolder onCreateViewHolder( ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.transaction_card,viewGroup,false);
         return new MoreTransactionViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MoreTransactionViewHolder moreTransactionViewHolder, int i) {
+    public void onBindViewHolder( MoreTransactionViewHolder moreTransactionViewHolder, int i) {
+
         MoreTransactionItem currentItem = mMoreTransactionList.get(i);
 
         String type = currentItem.getmType();
-        int amount = currentItem.getmAmount();
+        String amount = currentItem.getmAmount();
 
         moreTransactionViewHolder.mTextViewType.setText(type);
         moreTransactionViewHolder.mTextViewAmount.setText("Rs. " + amount);
@@ -49,13 +47,11 @@ public class MoreTransactionAdapter extends RecyclerView.Adapter<MoreTransaction
         public TextView mTextViewType;
         public TextView mTextViewAmount;
 
-        public MoreTransactionViewHolder( View itemView) {
+        public MoreTransactionViewHolder(View itemView) {
             super(itemView);
             mTextViewType = itemView.findViewById(R.id.text_transaction_type);
             mTextViewAmount = itemView.findViewById(R.id.text_transaction_amount);
 
         }
     }
-
-
 }

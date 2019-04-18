@@ -2,15 +2,15 @@ package tech.dsckiet.budgetbucket;
 
 public class MoreTransactionItem {
 
-    private int mAmount;
+    private String mAmount;
     private String mType;
 
-    public MoreTransactionItem(String type, int amount){
+    public MoreTransactionItem(String type, String amount){
         mAmount = amount;
         mType = type;
     }
 
-    public int getmAmount() {
+    public String getmAmount() {
         return mAmount;
     }
 
