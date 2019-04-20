@@ -1,16 +1,22 @@
 package tech.dsckiet.budgetbucket;
 
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -57,6 +63,9 @@ public class FragmentDashboard extends Fragment {
     private CardView savings_card;
     private FloatingActionButton fab;
     private CardView more_transactions_card;
+    private android.support.v4.widget.NestedScrollView layout,layoutDashboard;
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private TextView budgetTV;
     private RequestQueue mQueue;
@@ -77,8 +86,23 @@ public class FragmentDashboard extends Fragment {
     public FragmentDashboard() {
         // Required empty public constructor
     }
+    //checking whether phone is connected to INTERNET
+    public static boolean isConnected(Context context) {
+        boolean connected = false;
 
+        ConnectivityManager cm = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        assert cm != null;
+
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+            connected = true;
+        }
+        return connected;
+    }
+    @SuppressLint("ResourceAsColor")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,7 +111,7 @@ public class FragmentDashboard extends Fragment {
         budgetTV = rootView.findViewById(R.id.text_view_budget);
         //super.onViewCreated(view, savedInstanceState);
 
-        final ArrayList<TransactionRecyclerView> mList = new ArrayList<>();
+
 
         recyclerViewTransaction = rootView.findViewById(R.id.recycler_view_transaction);
         decoView = rootView.findViewById(R.id.dynamic_arc_view);
@@ -95,112 +119,146 @@ public class FragmentDashboard extends Fragment {
         online_card = rootView.findViewById(R.id.online_card_dashboard);
         savings_card = rootView.findViewById(R.id.savings_card_dashboard);
         fab = rootView.findViewById(R.id.fab);
-
-        more_transactions_card = rootView.findViewById(R.id.more_transaction);
-        more_transactions_card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), TransactionsActivity.class);
-                startActivity(intent);
-            }
-        });
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), AddCashTransactionActivity.class));
-            }
-        });
-
-        //TODO: VOLLEY
-        mQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject data = response.getJSONObject("data");
-                            //TODO:MAIN DATA
-                            String onlineAmt = data.getString("online");
-                            onlineAmount = Float.parseFloat(onlineAmt);
-                            String offlineAmt = data.getString("offline");
-                            offlineAmount = Float.parseFloat(offlineAmt);
-                            String budgetAmt = data.getString("budget");
-                            budgetAmount = Float.parseFloat(budgetAmt);
-                            String leftAmt = data.getString("left_amount");
-                            leftAmount = Float.parseFloat(leftAmt);
-                            String savingsAmt = data.getString("savings");
-                            savings = Float.parseFloat(savingsAmt);
-                            JSONArray transactions = data.getJSONArray("transactions");
-                            for (int i = 0; i < transactions.length(); i++) {
-                                JSONObject sample = transactions.getJSONObject(i);
-                                String type = sample.getString("type");
-                                String amount = sample.getString("amount");
-                                mList.add(new TransactionRecyclerView(type, amount));
-//                                Toast.makeText(getActivity(), amt, Toast.LENGTH_SHORT).show();
-
-                            }
-                            mAdapter = new TransactionAdapter(mList);
-                            recyclerViewTransaction.setHasFixedSize(true);
-                            final LinearLayoutManager layoutManager = new LinearLayoutManager(FragmentDashboard.this.getActivity());
-                            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                            recyclerViewTransaction.setLayoutManager(layoutManager);
-
-                            recyclerViewTransaction.setItemAnimator(new DefaultItemAnimator());
-                            recyclerViewTransaction.setAdapter(mAdapter);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_bar);
+        layout = rootView.findViewById(R.id.offline_layout);
+        layoutDashboard = rootView.findViewById(R.id.dashboardLayout);
 
 
+//        if(!isConnected(getActivity())){
+//            mSwipeRefreshLayout.setRefreshing(false);
+//        }else if(isConnected(getActivity())){
+//        if(isConnected(getContext()) == false){
+////         layoutDashboard.setVisibility(View.GONE);
+////         layout.setVisibility(View.VISIBLE);
+//            mSwipeRefreshLayout.setRefreshing(false);
+//            Toast.makeText(getContext(), "Offline", Toast.LENGTH_SHORT).show();
+//        }else {
+            mSwipeRefreshLayout.setRefreshing(true);
+            loadData();
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    loadData();
+                }
+            });
 
+            mSwipeRefreshLayout.setColorSchemeColors(
+                    R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark
+            );
+            more_transactions_card = rootView.findViewById(R.id.more_transaction);
+            more_transactions_card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), TransactionsActivity.class);
+                    startActivity(intent);
+                }
+            });
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getContext(), AddCashTransactionActivity.class));
+                }
+            });
+//        }
 
-                            if(budgetAmt != null) {
-                                createBackSeries();
-                                createBackSeries1();
-                                createBackSeries2();
-                                createEvents();
-
-
-                                budgetTV.setText("Rs. " + budgetAmt);
-
-                                cash_card.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        createEventCash();
-                                    }
-                                });
-                                online_card.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        createEventOnline();
-                                    }
-                                });
-                                savings_card.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        createBackSeries();
-                                        createBackSeries1();
-                                        createBackSeries2();
-                                        createEvents();
-                                    }
-                                });
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-
-        mQueue.add(request);
-        //End of JSON Volley
 
 
 
         return rootView;
+    }
+
+    private void loadData(){
+        if(isConnected(getActivity())) {
+            final ArrayList<TransactionRecyclerView> mList = new ArrayList<>();
+            //TODO: VOLLEY
+            mQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                JSONObject data = response.getJSONObject("data");
+                                //TODO:MAIN DATA
+                                String onlineAmt = data.getString("online");
+                                onlineAmount = Float.parseFloat(onlineAmt);
+                                String offlineAmt = data.getString("offline");
+                                offlineAmount = Float.parseFloat(offlineAmt);
+                                String budgetAmt = data.getString("budget");
+                                budgetAmount = Float.parseFloat(budgetAmt);
+                                String leftAmt = data.getString("left_amount");
+                                leftAmount = Float.parseFloat(leftAmt);
+                                String savingsAmt = data.getString("savings");
+                                savings = Float.parseFloat(savingsAmt);
+                                JSONArray transactions = data.getJSONArray("transactions");
+                                for (int i = 0; i < transactions.length(); i++) {
+                                    JSONObject sample = transactions.getJSONObject(i);
+                                    String type = sample.getString("type");
+                                    String amount = sample.getString("amount");
+                                    mList.add(new TransactionRecyclerView(type, amount));
+//                                Toast.makeText(getActivity(), amt, Toast.LENGTH_SHORT).show();
+
+                                }
+                                mAdapter = new TransactionAdapter(mList);
+                                recyclerViewTransaction.setHasFixedSize(true);
+                                final LinearLayoutManager layoutManager = new LinearLayoutManager(FragmentDashboard.this.getActivity());
+                                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerViewTransaction.setLayoutManager(layoutManager);
+
+                                recyclerViewTransaction.setItemAnimator(new DefaultItemAnimator());
+                                recyclerViewTransaction.setAdapter(mAdapter);
+                                mSwipeRefreshLayout.setRefreshing(false);
+
+
+                                if (budgetAmt != null) {
+                                    createBackSeries();
+                                    createBackSeries1();
+                                    createBackSeries2();
+                                    createEvents();
+
+
+                                    budgetTV.setText("Rs. " + budgetAmt);
+
+                                    cash_card.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            createEventCash();
+                                        }
+                                    });
+                                    online_card.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            createEventOnline();
+                                        }
+                                    });
+                                    savings_card.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            createBackSeries();
+                                            createBackSeries1();
+                                            createBackSeries2();
+                                            createEvents();
+                                        }
+                                    });
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+
+            mQueue.add(request);
+            //End of JSON Volley}
+        }else if(!isConnected(getActivity())){
+            mSwipeRefreshLayout.setRefreshing(false);
+//            Snackbar.make(getView(),"Check your connection",2000);
+        }
     }
 
     private void createBackSeries() {
@@ -380,5 +438,5 @@ public class FragmentDashboard extends Fragment {
                 .setDelay(1000)
                 .build());
     }
-    
+
 }

@@ -52,7 +52,7 @@
                     android:layout_marginBottom="2dp"
                     android:fontFamily="@font/montserrat"
                     android:hint="Enter amount"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textSize="18dp"
                     android:textStyle="bold" />
             </android.support.design.widget.TextInputLayout>

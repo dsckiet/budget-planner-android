@@ -105,7 +105,7 @@ result_fun();}else{
 
     }
 
-    private void result_fun(){
+    public void result_fun(){
 
             mContainer.setVisibility(View.GONE);
             layout.setVisibility(View.VISIBLE);
@@ -164,15 +164,15 @@ result_fun();}else{
     }
 
     private void defaultFragment(){
-        replaceFragment(new FragmentDashboard());
-        Fragment c= new FragmentDashboard();
-        updateBottomNavigationTitle(c);
+        replaceFragment(new FragmentProfile());
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
     public void updateBottomNavigationTitle(Fragment f){
         String className = f.getClass().getName();
 
         if(className.equals(FragmentDashboard.class.getName()))
             navigationView.getMenu().getItem(1).setChecked(true);
+
 
     }
 

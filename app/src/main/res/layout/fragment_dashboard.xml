@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/dashboardLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -263,6 +264,9 @@
 
     </android.support.v4.widget.NestedScrollView>
 
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -273,6 +277,4 @@
         android:backgroundTint="@android:color/white"
         android:scaleType="fitEnd"
         android:src="@drawable/ic_add_red" />
-
-    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>
