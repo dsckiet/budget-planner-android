@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -64,7 +65,7 @@ public class FragmentDashboard extends Fragment {
     private FloatingActionButton fab;
     private CardView more_transactions_card;
     private android.support.v4.widget.NestedScrollView layout,layoutDashboard;
-
+    private CoordinatorLayout coordinatorLayout;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private TextView budgetTV;
@@ -122,6 +123,7 @@ public class FragmentDashboard extends Fragment {
         mSwipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_bar);
         layout = rootView.findViewById(R.id.offline_layout);
         layoutDashboard = rootView.findViewById(R.id.dashboardLayout);
+        coordinatorLayout = rootView.findViewById(R.id.dashboard_coordinator_layout);
 
 
 //        if(!isConnected(getActivity())){
@@ -257,6 +259,12 @@ public class FragmentDashboard extends Fragment {
             //End of JSON Volley}
         }else if(!isConnected(getActivity())){
             mSwipeRefreshLayout.setRefreshing(false);
+
+            Snackbar.make(coordinatorLayout, "Check your connection", Snackbar.LENGTH_LONG)
+                    .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
+                    .setDuration(1000)
+                    .show();
+
 //            Snackbar.make(getView(),"Check your connection",2000);
         }
     }

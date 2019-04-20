@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".FragmentDashboard">
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/dashboard_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_bar"
@@ -238,24 +243,24 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/more_transaction"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="4dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="8dp"
-                app:cardMaxElevation="6dp">
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#DF4141"
                     android:fontFamily="@font/montserrat"
                     android:gravity="center"
-                    android:text="online"
+                    android:text="See More"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:textStyle="bold"
                     android:textAllCaps="false"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorAccent"
                     android:textSize="16sp" />
 
             </android.support.v7.widget.CardView>
@@ -267,6 +272,7 @@
 
 
     </android.support.v4.widget.SwipeRefreshLayout>
+</android.support.design.widget.CoordinatorLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -277,4 +283,5 @@
         android:backgroundTint="@android:color/white"
         android:scaleType="fitEnd"
         android:src="@drawable/ic_add_red" />
+
 </RelativeLayout>

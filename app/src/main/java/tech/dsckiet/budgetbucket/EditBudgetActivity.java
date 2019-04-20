@@ -2,6 +2,8 @@ package tech.dsckiet.budgetbucket;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
@@ -28,6 +30,7 @@ public class EditBudgetActivity extends AppCompatActivity {
     private CardView changeBudgetBtn;
     private FirebaseAuth mAuth;
     private String amount;
+    private CoordinatorLayout coordinatorLayout;
 
     public String mail() {
         mAuth = FirebaseAuth.getInstance();
@@ -54,11 +57,21 @@ public class EditBudgetActivity extends AppCompatActivity {
 
         editTextBudget = findViewById(R.id.editText_budget);
         changeBudgetBtn = findViewById(R.id.change_budget_button);
+        coordinatorLayout = findViewById(R.id.edit_budget_coordinator_layout);
+
 
         changeBudgetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                post();
+                if(editTextBudget.getText().toString().equals("")|| Integer.parseInt(editTextBudget.getText().toString()) == 0){
+                    Snackbar.make(coordinatorLayout, "Budget can't be null", Snackbar.LENGTH_LONG)
+                            .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
+                            .setDuration(1000)
+                            .show();
+                }else{
+                        post();
+
+                }
 //                Intent intent = new Intent(getApplicationContext(),FragmentProfile.class);
 //                Bundle bundle = new Bundle();
 //                bundle.putString("monthlyBudget", "120");
@@ -78,7 +91,10 @@ public class EditBudgetActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST,new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getApplication(), response, Toast.LENGTH_SHORT).show();
+                Snackbar.make(coordinatorLayout, "Budget updated.", Snackbar.LENGTH_LONG)
+                        .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
+                        .setDuration(1000)
+                        .show();
                 editTextBudget.setText("");
             }
         }, new com.android.volley.Response.ErrorListener() {

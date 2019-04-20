@@ -1,6 +1,9 @@
 package tech.dsckiet.budgetbucket;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
@@ -27,6 +30,7 @@ public class AddCashTransactionActivity extends AppCompatActivity {
     private CardView btnAddCash;
 
     private FirebaseAuth mAuth;
+    private CoordinatorLayout coordinatorLayout;
 
     private String mail() {
         mAuth = FirebaseAuth.getInstance();
@@ -45,6 +49,8 @@ public class AddCashTransactionActivity extends AppCompatActivity {
         backArrow = findViewById(R.id.back_arrow_button_add_transaction);
         etAddCash = findViewById(R.id.edittext_add_transaction_amount);
         btnAddCash = findViewById(R.id.button_add_transaction);
+        coordinatorLayout = findViewById(R.id.add_transaction_coordinator_layout);
+
 
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,19 +58,32 @@ public class AddCashTransactionActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         btnAddCash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fun();
+//                int zero = etAddCash.getText().toString()
+                if(etAddCash.getText().toString().equals("") || Integer.parseInt(etAddCash.getText().toString()) == 0){
+                    Snackbar.make(coordinatorLayout, "Transaction can't be empty", Snackbar.LENGTH_LONG)
+                            .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
+                            .setDuration(1000)
+                            .show();
+                }else{
+                    fun();
+                }
             }
         });
-    }
+        }
+
 
     private void fun(){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST,new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getApplication(), response, Toast.LENGTH_SHORT).show();
+                Snackbar.make(coordinatorLayout, "Offline transaction added.", Snackbar.LENGTH_LONG)
+                        .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
+                        .setDuration(1000)
+                        .show();
                 etAddCash.setText("");
             }
         }, new com.android.volley.Response.ErrorListener() {

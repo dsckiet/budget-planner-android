@@ -94,10 +94,6 @@ public class FragmentProfile extends Fragment {
             }
         });
 
-////        if(clicked){
-//            String newBudget = getArguments().getString("monthlyBudget");
-//            monthly_challenge_text_view.setText(newBudget);
-////        }
         fun();
         return rootView;
     }
