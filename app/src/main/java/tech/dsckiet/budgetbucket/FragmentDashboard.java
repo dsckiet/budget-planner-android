@@ -1,11 +1,16 @@
 package tech.dsckiet.budgetbucket;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -80,41 +85,18 @@ public class FragmentDashboard extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         budgetTV = rootView.findViewById(R.id.text_view_budget);
-
-
-        return rootView;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-
-        super.onViewCreated(view, savedInstanceState);
+        //super.onViewCreated(view, savedInstanceState);
 
         final ArrayList<TransactionRecyclerView> mList = new ArrayList<>();
 
-//        transactionList.add(new TransactionRecyclerView("Online", "Rs. 110"));
-//        transactionList.add(new TransactionRecyclerView("Offline", "Rs. 20"));
-//        transactionList.add(new TransactionRecyclerView("Online", "Rs. 80"));
-//        transactionList.add(new TransactionRecyclerView("Offline", "Rs. 80"));
-//        transactionList.add(new TransactionRecyclerView("Offlinee", "Rs. 600"));
-//
-//        mAdapter = new TransactionAdapter(transactionList);
-//        final LinearLayoutManager layoutManager = new LinearLayoutManager(FragmentDashboard.this.getActivity());
-//        recyclerViewTransaction.setLayoutManager(layoutManager);
-//
-//        recyclerViewTransaction.setItemAnimator(new DefaultItemAnimator());
-//        // adding the divider between the elements
-////        recyclerViewTransaction.addItemDecoration(new DividerItemDecoration(HomeFragment.this.getActivity(),LinearLayoutManager.VERTICAL));
-//        recyclerViewTransaction.setAdapter(mAdapter);
+        recyclerViewTransaction = rootView.findViewById(R.id.recycler_view_transaction);
+        decoView = rootView.findViewById(R.id.dynamic_arc_view);
+        cash_card = rootView.findViewById(R.id.cash_card_dashboard);
+        online_card = rootView.findViewById(R.id.online_card_dashboard);
+        savings_card = rootView.findViewById(R.id.savings_card_dashboard);
+        fab = rootView.findViewById(R.id.fab);
 
-        recyclerViewTransaction = view.findViewById(R.id.recycler_view_transaction);
-        decoView = view.findViewById(R.id.dynamic_arc_view);
-        cash_card = view.findViewById(R.id.cash_card_dashboard);
-        online_card = view.findViewById(R.id.online_card_dashboard);
-        savings_card = view.findViewById(R.id.savings_card_dashboard);
-        fab = view.findViewById(R.id.fab);
-
-        more_transactions_card = view.findViewById(R.id.more_transaction);
+        more_transactions_card = rootView.findViewById(R.id.more_transaction);
         more_transactions_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,7 +119,17 @@ public class FragmentDashboard extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject data = response.getJSONObject("data");
-
+                            //TODO:MAIN DATA
+                            String onlineAmt = data.getString("online");
+                            onlineAmount = Float.parseFloat(onlineAmt);
+                            String offlineAmt = data.getString("offline");
+                            offlineAmount = Float.parseFloat(offlineAmt);
+                            String budgetAmt = data.getString("budget");
+                            budgetAmount = Float.parseFloat(budgetAmt);
+                            String leftAmt = data.getString("left_amount");
+                            leftAmount = Float.parseFloat(leftAmt);
+                            String savingsAmt = data.getString("savings");
+                            savings = Float.parseFloat(savingsAmt);
                             JSONArray transactions = data.getJSONArray("transactions");
                             for (int i = 0; i < transactions.length(); i++) {
                                 JSONObject sample = transactions.getJSONObject(i);
@@ -154,56 +146,42 @@ public class FragmentDashboard extends Fragment {
                             recyclerViewTransaction.setLayoutManager(layoutManager);
 
                             recyclerViewTransaction.setItemAnimator(new DefaultItemAnimator());
-                            // adding the divider between the elements
-//        recyclerViewTransaction.addItemDecoration(new DividerItemDecoration(HomeFragment.this.getActivity(),LinearLayoutManager.VERTICAL));
                             recyclerViewTransaction.setAdapter(mAdapter);
 
-//                            mAdapter.notifyDataSetChanged();
 
 
-                            //TODO:MAIN DATA
-                            String onlineAmt = data.getString("online");
-                            onlineAmount = Float.parseFloat(onlineAmt);
-                            String offlineAmt = data.getString("offline");
-                            offlineAmount = Float.parseFloat(offlineAmt);
-                            String budgetAmt = data.getString("budget");
-                            budgetAmount = Float.parseFloat(budgetAmt);
-                            String leftAmt = data.getString("left_amount");
-                            leftAmount = Float.parseFloat(leftAmt);
-                            String savingsAmt = data.getString("savings");
-                            savings = Float.parseFloat(savingsAmt);
+
+                            if(budgetAmt != null) {
+                                createBackSeries();
+                                createBackSeries1();
+                                createBackSeries2();
+                                createEvents();
 
 
-//                            budgetTV.setText((int)budgetAmount);
-                            createBackSeries();
-                            createBackSeries1();
-                            createBackSeries2();
-                            createEvents();
+                                budgetTV.setText("Rs. " + budgetAmt);
 
-
-                            budgetTV.setText("Rs. " + budgetAmt);
-
-                            cash_card.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    createEventCash();
-                                }
-                            });
-                            online_card.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    createEventOnline();
-                                }
-                            });
-                            savings_card.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    createBackSeries();
-                                    createBackSeries1();
-                                    createBackSeries2();
-                                    createEvents();
-                                }
-                            });
+                                cash_card.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        createEventCash();
+                                    }
+                                });
+                                online_card.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        createEventOnline();
+                                    }
+                                });
+                                savings_card.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        createBackSeries();
+                                        createBackSeries1();
+                                        createBackSeries2();
+                                        createEvents();
+                                    }
+                                });
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -220,8 +198,10 @@ public class FragmentDashboard extends Fragment {
         mQueue.add(request);
         //End of JSON Volley
 
-    }
 
+
+        return rootView;
+    }
 
     private void createBackSeries() {
         SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor("#55D880"))
@@ -400,4 +380,5 @@ public class FragmentDashboard extends Fragment {
                 .setDelay(1000)
                 .build());
     }
+    
 }

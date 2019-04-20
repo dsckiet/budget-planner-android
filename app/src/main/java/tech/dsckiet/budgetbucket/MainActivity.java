@@ -1,7 +1,10 @@
 package tech.dsckiet.budgetbucket;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -13,20 +16,45 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class MainActivity extends AppCompatActivity {
+    private FrameLayout mContainer;
     public static final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0;
     private BottomNavigationViewEx navigationView;
+    private android.support.v4.widget.NestedScrollView layout;
+    private CardView btn_refresh_offline;
 
+    //checking whether phone is connected to INTERNET
+    public static boolean isConnected(Context context) {
+        boolean connected = false;
+
+        ConnectivityManager cm = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        assert cm != null;
+
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+            connected = true;
+        }
+        return connected;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContainer = findViewById(R.id.container);
+        layout = findViewById(R.id.offline_layout);
+        btn_refresh_offline = findViewById(R.id.refresh_offline);
 
         //check if the permission is not granted
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
@@ -41,7 +69,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        if(isConnected(getApplicationContext()) == false){
+result_fun();}else{
+            layout.setVisibility(View.GONE);
+        }
 
+        btn_refresh_offline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isConnected(getApplicationContext())) {
+                    mContainer.setVisibility(View.VISIBLE);
+                    layout.setVisibility(View.GONE);
+                    defaultFragment();
+                }
+            }
+        });
         //bottom navigation
         navigationView = (BottomNavigationViewEx) findViewById(R.id.bottom_nav);
         navigationView.enableAnimation(false);
@@ -63,6 +105,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void result_fun(){
+
+            mContainer.setVisibility(View.GONE);
+            layout.setVisibility(View.VISIBLE);
+
+    }
 
 
 
@@ -73,13 +121,26 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    replaceFragment(new FragmentDashboard());
+                    if(isConnected(getApplicationContext())){
+                    replaceFragment(new FragmentDashboard());}
+                    else{
+                        result_fun();
+                    }
                     break;
                 case R.id.nav_account:
-                    replaceFragment(new FragmentProfile());
+                    if(isConnected(getApplicationContext())){
+                    replaceFragment(new FragmentProfile());}
+                    else{
+                        result_fun();
+                    }
                     break;
                 case R.id.nav_settings:
-                    replaceFragment(new FragmentSettings());
+                    if(isConnected(getApplicationContext())){
+                    replaceFragment(new FragmentSettings());}
+                    else
+                    {
+                        result_fun();
+                    }
                     break;
             }
             return true;
@@ -102,6 +163,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void defaultFragment(){
+        replaceFragment(new FragmentDashboard());
+        Fragment c= new FragmentDashboard();
+        updateBottomNavigationTitle(c);
+    }
     public void updateBottomNavigationTitle(Fragment f){
         String className = f.getClass().getName();
 

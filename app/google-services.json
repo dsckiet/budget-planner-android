@@ -8,59 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:96843913328:android:e2a6158dd5ad6eb8",
-        "android_client_info": {
-          "package_name": "io.github.dsckiet.budgetplanner"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "96843913328-ekl6vo9pigqtf5g4eieqvpashuk60scl.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "io.github.dsckiet.budgetplanner",
-            "certificate_hash": "622d09a811b7a03787cc5413b0699b2fc7f622e2"
-          }
-        },
-        {
-          "client_id": "96843913328-cgrajv3givsdacq4bab6bjakp2t50jms.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "io.github.dsckiet.budgetplanner",
-            "certificate_hash": "1f06dda329e153425c86820162ccba5624b5c5e0"
-          }
-        },
-        {
-          "client_id": "96843913328-bhk1ua8nuohgmoni35etovq3pdpqbblj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "io.github.dsckiet.budgetplanner",
-            "certificate_hash": "7da30b654a6f6fdbb40eea2bfd2df6a56b97d689"
-          }
-        },
-        {
-          "client_id": "96843913328-gvlrtn0vkaj31irumsujvrnsno65sf1e.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDAXeCsLFUIng1Z3uhGLL0UzRhrUC-eUMY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "96843913328-gvlrtn0vkaj31irumsujvrnsno65sf1e.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:96843913328:android:d3c50b3aa43627e5",
         "android_client_info": {
           "package_name": "tech.dsckiet.budgetbucket"
@@ -68,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "96843913328-j3g84atjrrubio8vob94q189miqffj6n.apps.googleusercontent.com",
+          "client_id": "96843913328-iff9qj4r5rfubl37lk9lcdsrehn35khd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "tech.dsckiet.budgetbucket",
