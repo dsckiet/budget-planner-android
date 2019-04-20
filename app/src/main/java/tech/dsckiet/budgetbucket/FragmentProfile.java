@@ -45,7 +45,8 @@ public class FragmentProfile extends Fragment {
 
     private String userName, userUID, userMail;
     String URL_POST = "https://tranquil-coast-71727.herokuapp.com/api/v1/add_user/" + mail();
-    String CHECK_USER = "https://tranquil-coast-71727.herokuapp.com/api/v1/user/" + mail();
+    private String URL_GET = "https://tranquil-coast-71727.herokuapp.com/api/v1/dashboard/" + mail();
+
 
     public String mail() {
         mAuth = FirebaseAuth.getInstance();
@@ -83,14 +84,15 @@ public class FragmentProfile extends Fragment {
         Picasso.get().load(user.getPhotoUrl()).fit().centerInside().into(profile_image);
 
         //for edit budget section
-//        edit_budget_card.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getContext(), EditBudgetActivity.class));
-//                clicked = true;
-//                //need to implement finish
-//            }
-//        });
+        edit_budget_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), EditBudgetActivity.class));
+
+                clicked = true;
+                //need to implement finish
+            }
+        });
 
 ////        if(clicked){
 //            String newBudget = getArguments().getString("monthlyBudget");

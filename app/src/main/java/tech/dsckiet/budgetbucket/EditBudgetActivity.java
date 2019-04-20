@@ -1,5 +1,6 @@
 package tech.dsckiet.budgetbucket;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -61,7 +62,7 @@ public class EditBudgetActivity extends AppCompatActivity {
 //                Intent intent = new Intent(getApplicationContext(),FragmentProfile.class);
 //                Bundle bundle = new Bundle();
 //                bundle.putString("monthlyBudget", "120");
-//
+
 //                FragmentProfile fragobj = new FragmentProfile();
 //                fragobj.setArguments(bundle);
 //                Toast.makeText(EditBudgetActivity.this, "Budget Updated", Toast.LENGTH_SHORT).show();
