@@ -35,7 +35,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void onBindViewHolder( MyViewHolder holder, int i) {
         TransactionRecyclerView transactionRecyclerView = transactionList.get(i);
         holder.company.setText(transactionRecyclerView.getTransactionCompany());
-        holder.amount.setText(transactionRecyclerView.getTransactionAmount());
+        holder.amount.setText("Rs. "+transactionRecyclerView.getTransactionAmount());
     }
 
     @Override

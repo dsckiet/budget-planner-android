@@ -85,11 +85,7 @@ public class SMSReceiver extends BroadcastReceiver {
                 }
 
                 // it helps to show/record messages from company(not local numbers)
-//                if(TransacFrom(phoneno))
-
-//                String messageNotification = intent.getStringExtra("notficationMessage");
-
-//                Toast.makeText(context, messageNotification, Toast.LENGTH_SHORT).show();
+                if(TransacFrom(phoneno))
                 showNotification(recievedMsgTrans,context);
 //                Toast.makeText(context, "Mesg : " + recievedMsgTrans + "\nNumber : " + phoneno, Toast.LENGTH_LONG).show();
                 //addNotification();
@@ -97,7 +93,7 @@ public class SMSReceiver extends BroadcastReceiver {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST, new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onResponse: " + "DATA PUSHED" );
                     }
                 }, new com.android.volley.Response.ErrorListener() {

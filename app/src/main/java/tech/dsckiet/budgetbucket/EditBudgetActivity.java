@@ -67,21 +67,9 @@ public class EditBudgetActivity extends AppCompatActivity {
                             .show();
                 }else{
                         post();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("budgetAmount",editTextBudget.getText().toString());
-//                    FragmentProfile fragmentProfile = new FragmentProfile();
-//                    fragmentProfile.setArguments(bundle);
 
                 }
-//                Intent intent = new Intent(getApplicationContext(),FragmentProfile.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("monthlyBudget", "120");
 
-//                FragmentProfile fragobj = new FragmentProfile();
-//                fragobj.setArguments(bundle);
-//                Toast.makeText(EditBudgetActivity.this, "Budget Updated", Toast.LENGTH_SHORT).show();
-//                startActivity(intent);
-//                finish();
 
             }
         });

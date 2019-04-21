@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -63,7 +64,7 @@ public class FragmentDashboard extends Fragment {
     private CardView savings_card;
     private FloatingActionButton fab;
     private CardView more_transactions_card;
-    private android.support.v4.widget.NestedScrollView layout,layoutDashboard;
+    private android.support.v4.widget.NestedScrollView layout, layoutDashboard;
     private CoordinatorLayout coordinatorLayout;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -86,6 +87,7 @@ public class FragmentDashboard extends Fragment {
     public FragmentDashboard() {
         // Required empty public constructor
     }
+
     //checking whether phone is connected to INTERNET
     public static boolean isConnected(Context context) {
         boolean connected = false;
@@ -102,6 +104,7 @@ public class FragmentDashboard extends Fragment {
         }
         return connected;
     }
+
     @SuppressLint("ResourceAsColor")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -110,7 +113,6 @@ public class FragmentDashboard extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         budgetTV = rootView.findViewById(R.id.text_view_budget);
         //super.onViewCreated(view, savedInstanceState);
-
 
 
         recyclerViewTransaction = rootView.findViewById(R.id.recycler_view_transaction);
@@ -124,39 +126,34 @@ public class FragmentDashboard extends Fragment {
         layoutDashboard = rootView.findViewById(R.id.dashboardLayout);
         coordinatorLayout = rootView.findViewById(R.id.dashboard_coordinator_layout);
 
-            mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setRefreshing(true);
 
-            loadData();
-            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    loadData();
-                }
-            });
+        loadData();
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+            }
+        });
 
-            mSwipeRefreshLayout.setColorSchemeColors(
-                    R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark
-            );
-            more_transactions_card = rootView.findViewById(R.id.more_transaction);
-            more_transactions_card.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getContext(), TransactionsActivity.class);
-                    startActivity(intent);
-                }
-            });
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(getContext(), AddCashTransactionActivity.class));
-                }
-            });
+        mSwipeRefreshLayout.setColorSchemeColors(
+                R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark
+        );
+        more_transactions_card = rootView.findViewById(R.id.more_transaction);
+        more_transactions_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), TransactionsActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         return rootView;
     }
 
-    private void loadData(){
-        if(isConnected(getActivity())) {
+    private void loadData() {
+        if (isConnected(getActivity())) {
             final ArrayList<TransactionRecyclerView> mList = new ArrayList<>();
             //TODO: VOLLEY
             mQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
@@ -226,6 +223,19 @@ public class FragmentDashboard extends Fragment {
                                             createEvents();
                                         }
                                     });
+                                    fab.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            if (budgetAmount != 0f) {
+                                                startActivity(new Intent(getContext(), AddCashTransactionActivity.class));
+                                            } else {
+                                                Snackbar.make(coordinatorLayout, "Please enter your budget.", Snackbar.LENGTH_LONG)
+                                                        .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
+                                                        .setDuration(1000)
+                                                        .show();
+                                            }
+                                        }
+                                    });
                                 }
 
                             } catch (JSONException e) {
@@ -242,7 +252,7 @@ public class FragmentDashboard extends Fragment {
 
             mQueue.add(request);
             //End of JSON Volley}
-        }else if(!isConnected(getActivity())){
+        } else if (!isConnected(getActivity())) {
             mSwipeRefreshLayout.setRefreshing(false);
 
             Snackbar.make(coordinatorLayout, "Check your connection", Snackbar.LENGTH_LONG)
@@ -262,30 +272,35 @@ public class FragmentDashboard extends Fragment {
 
     private void createBackSeries1() {
 
-        if(budgetAmount != 0f){
-        final float cashValue = (offlineAmount / budgetAmount) * 100;
-        final float onlineValue = (onlineAmount / budgetAmount) * 100;
-        final SeriesItem seriesItem = new SeriesItem.Builder(getResources().getColor(R.color.colorGoogleYellow))
-                .setRange(0, seriesMax, 0)
-                .setInitialVisibility(false)
-                .build();
-        final TextView textPercentage = getView().findViewById(R.id.textPercentage);
-        //final TextView txt1 = findViewById(R.id.t1);
-        seriesItem.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
-            @Override
-            public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
-                //float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
-                textPercentage.setText("Savings : " + "\n" + String.format("%.0f%%", 100 - onlineValue - cashValue));
-                //txt1.setText(String.format("%.0f%%",  (percentFilled * 100f)-(1200/50)));
-            }
+        if (budgetAmount != 0f) {
+            final float cashValue = (offlineAmount / budgetAmount) * 100;
+            final float onlineValue = (onlineAmount / budgetAmount) * 100;
+            final SeriesItem seriesItem = new SeriesItem.Builder(getResources().getColor(R.color.colorGoogleYellow))
+                    .setRange(0, seriesMax, 0)
+                    .setInitialVisibility(false)
+                    .build();
+            final TextView textPercentage = getView().findViewById(R.id.textPercentage);
+            //final TextView txt1 = findViewById(R.id.t1);
+            seriesItem.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
+                @Override
+                public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
+                    //float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
+                    if(savings == 1f ){
+                        textPercentage.setText("Savings : " + "\n \n" + "Rs. " + String.format("%.01f", leftAmount));
+                    }else if(savings == 0f){
+                        textPercentage.setText("\n"+" No savings.");
+                    }
+//
+                    //txt1.setText(String.format("%.0f%%",  (percentFilled * 100f)-(1200/50)));
+                }
 
-            @Override
-            public void onSeriesItemDisplayProgress(float percentComplete) {
+                @Override
+                public void onSeriesItemDisplayProgress(float percentComplete) {
 //                final TextView txt2 = findViewById(R.id.t2);
 //                txt2.setText(Float.toString(percentComplete*100f));
-            }
-        });
-        Series1Index = decoView.addSeries(seriesItem);
+                }
+            });
+            Series1Index = decoView.addSeries(seriesItem);
         }
 
     }
@@ -314,7 +329,7 @@ public class FragmentDashboard extends Fragment {
     }
 
     private void createEvents() {
-        if(budgetAmount != 0f) {
+        if (budgetAmount != 0f) {
             final float cashValue = (offlineAmount / budgetAmount) * 100;
             final float onlineValue = (onlineAmount / budgetAmount) * 100;
             //decoView.executeReset();
@@ -344,7 +359,7 @@ public class FragmentDashboard extends Fragment {
                     .setIndex(Series2Index)
                     .setDelay(1000)
                     .build());
-        }else {
+        } else {
             Snackbar.make(coordinatorLayout, "Please enter your budget.", Snackbar.LENGTH_LONG)
                     .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
                     .setDuration(1000)
@@ -363,9 +378,9 @@ public class FragmentDashboard extends Fragment {
     }
 
     private void createBackSeries1a() {
-        if(budgetAmount != 0f) {
+        if (budgetAmount != 0f) {
             final float cashValue = (offlineAmount / budgetAmount) * 100;
-            final float onlineValue = (onlineAmount / budgetAmount) * 100;
+//            final float onlineValue = (onlineAmount / budgetAmount) * 100;
             final SeriesItem seriesItem = new SeriesItem.Builder(getResources().getColor(R.color.colorGoogleYellow))
                     .setRange(0, seriesMax, 0)
                     .setInitialVisibility(false)
@@ -375,8 +390,8 @@ public class FragmentDashboard extends Fragment {
             seriesItem.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
                 @Override
                 public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
-                    float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
-                    textPercentage.setText("Spent : " + "\n" + String.format("%.0f%%", (percentFilled * 100f)));
+//                    float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
+                    textPercentage.setText("Cash : " + "\n \n" + "Rs. "+String.format("%.01f", offlineAmount) );
                     //txt1.setText(String.format("%.0f%%",  (percentFilled * 100f)-(1200/50)));
                 }
 
@@ -397,8 +412,7 @@ public class FragmentDashboard extends Fragment {
                     .setIndex(Series1Index)
                     .setDelay(1000)
                     .build());
-        }
-        else{
+        } else {
             Snackbar.make(coordinatorLayout, "Please enter your budget.", Snackbar.LENGTH_LONG)
                     .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
                     .setDuration(1000)
@@ -407,8 +421,8 @@ public class FragmentDashboard extends Fragment {
     }
 
     private void createBackSeries2a() {
-        if(budgetAmount != 0f) {
-            final float cashValue = (offlineAmount / budgetAmount) * 100;
+        if (budgetAmount != 0f) {
+//            final float cashValue = (offlineAmount / budgetAmount) * 100;
             final float onlineValue = (onlineAmount / budgetAmount) * 100;
             final SeriesItem seriesItem = new SeriesItem.Builder(getResources().getColor(R.color.colorGoogleRed))
                     .setRange(0, seriesMax, 0)
@@ -421,9 +435,9 @@ public class FragmentDashboard extends Fragment {
             seriesItem.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
                 @Override
                 public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
-                    float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
+//                    float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
                     //txt2.setText(String.format("%.0f%%",  (percentFilled * 100f)));
-                    textPercentage.setText("Spent : " + "\n" + String.format("%.0f%%", (percentFilled * 100f)));
+                    textPercentage.setText("Online : " + "\n \n" + "Rs. " + String.format("%.01f", onlineAmount));
                 }
 
                 @Override
@@ -444,7 +458,7 @@ public class FragmentDashboard extends Fragment {
                     .setIndex(Series2Index)
                     .setDelay(1000)
                     .build());
-        }else{
+        } else {
             Snackbar.make(coordinatorLayout, "Please enter your budget.", Snackbar.LENGTH_LONG)
                     .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
                     .setDuration(1000)

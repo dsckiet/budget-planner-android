@@ -153,12 +153,13 @@
                         <TextView
                             android:id="@+id/textPercentage"
                             android:layout_width="200dp"
-                            android:layout_height="60dp"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="130dp"
+                            android:layout_marginTop="108dp"
                             android:fontFamily="@font/montserrat"
                             android:gravity="center"
-                            android:text="%age Left"
+                            android:textStyle="bold"
+                            android:text="---"
                             android:textSize="20sp" />
 
 
@@ -197,7 +198,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="16dp"
                                 android:fontFamily="@font/montserrat"
-                                android:text="Rs. 2500"
+                                android:text="Rs. ----"
                                 android:textColor="#ffffff"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
