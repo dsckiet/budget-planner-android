@@ -7,161 +7,175 @@
     android:orientation="vertical"
     tools:context=".FragmentDashboard">
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/profile_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--Relative layout for setting image view on center of card view-->
-        <RelativeLayout
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_bar_profile"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/profile_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/text_title_dashboard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:fontFamily="@font/montserrat"
-                    android:text="Profile"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <android.support.v7.widget.CardView
+                <!--Relative layout for setting image view on center of card view-->
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="12dp"
-                    android:layout_marginTop="96dp"
-                    app:cardCornerRadius="6dp"
-                    app:cardElevation="4dp"
-                    app:cardMaxElevation="6dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="70dp"
-                        android:orientation="vertical"
-                        android:paddingVertical="16dp">
-
-                        <TextView
-                            android:id="@+id/text_profile_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat"
-                            android:gravity="center"
-                            android:text="Aakash Goel"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/text_profile_mail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat"
-                            android:gravity="center"
-                            android:text="geolaakash79@gmail.com"
-                            android:textSize="16dp" />
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="12dp"
-                    app:cardCornerRadius="6dp"
-                    app:cardElevation="4dp"
-                    app:cardMaxElevation="6dp"
-                    app:cardPreventCornerOverlap="false">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:paddingBottom="8dp">
+                        android:padding="16dp">
 
                         <TextView
+                            android:id="@+id/text_title_dashboard"
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:layout_margin="16dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:fontFamily="@font/montserrat"
-                            android:gravity="center_vertical"
-                            android:text="Budget Settings"
-                            android:textColor="@android:color/black"
-                            android:textSize="20sp"
+                            android:text="Profile"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="24sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="12dp"
-                            android:fontFamily="@font/montserrat"
-                            android:text="Monthly Challenge"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="12dp"
+                            android:layout_marginTop="96dp"
+                            app:cardCornerRadius="6dp"
+                            app:cardElevation="4dp"
+                            app:cardMaxElevation="6dp">
 
-                        <TextView
-                            android:id="@+id/text_monthly_challenge"
-                            android:layout_width="180dp"
-                            android:layout_height="20dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/montserrat"
-                            android:text="Rs.9600"
-                            android:textSize="16sp" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="70dp"
+                                android:orientation="vertical"
+                                android:paddingVertical="16dp">
+
+                                <TextView
+                                    android:id="@+id/text_profile_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat"
+                                    android:gravity="center"
+                                    android:text="Aakash Goel"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/text_profile_mail"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat"
+                                    android:gravity="center"
+                                    android:text="geolaakash79@gmail.com"
+                                    android:textSize="16dp" />
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="12dp"
+                            app:cardCornerRadius="6dp"
+                            app:cardElevation="4dp"
+                            app:cardMaxElevation="6dp"
+                            app:cardPreventCornerOverlap="false">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingBottom="8dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="40dp"
+                                    android:layout_margin="16dp"
+                                    android:fontFamily="@font/montserrat"
+                                    android:gravity="center_vertical"
+                                    android:text="Budget Settings"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:layout_marginLeft="16dp"
+                                    android:layout_marginTop="12dp"
+                                    android:fontFamily="@font/montserrat"
+                                    android:text="Monthly Challenge"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/text_monthly_challenge"
+                                    android:layout_width="180dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:fontFamily="@font/montserrat"
+                                    android:text="Rs. ----"
+                                    android:textSize="16sp" />
+
+                            </LinearLayout>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/edit_budget_card"
+                                android:layout_width="80dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="right"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                app:cardCornerRadius="6dp"
+                                app:cardElevation="4dp"
+                                app:cardMaxElevation="6dp"
+                                app:cardPreventCornerOverlap="false">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/colorPrimary"
+                                    android:fontFamily="@font/montserrat"
+                                    android:gravity="center"
+                                    android:text="Edit"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="20dp" />
+
+                            </android.support.v7.widget.CardView>
+
+                        </android.support.v7.widget.CardView>
 
                     </LinearLayout>
 
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/edit_budget_card"
-                        android:layout_width="80dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        app:cardCornerRadius="6dp"
-                        app:cardElevation="4dp"
-                        app:cardMaxElevation="6dp"
-                        app:cardPreventCornerOverlap="false">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="108dp"
+                        android:layout_height="108dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="88dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/samplecontact" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/colorPrimary"
-                            android:fontFamily="@font/montserrat"
-                            android:gravity="center"
-                            android:text="Edit"
-                            android:textColor="@android:color/white"
-                            android:textSize="20dp" />
-
-                    </android.support.v7.widget.CardView>
-
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_width="108dp"
-                android:layout_height="108dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="88dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/samplecontact" />
-
-        </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
+                </RelativeLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

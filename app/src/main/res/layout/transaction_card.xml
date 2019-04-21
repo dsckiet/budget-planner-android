@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="@color/colorDanger"
+    app:cardBackgroundColor="@color/colorGoogleRed"
     app:cardCornerRadius="6dp"
     app:cardMaxElevation="6dp">
 
@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:fontFamily="@font/montserrat"
-            android:gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical"
             android:text="Rs. 1200"
             android:textColor="@color/colorWhite"
             android:textSize="18dp"
@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:fontFamily="@font/montserrat"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="center_vertical"
             android:text="Online"
             android:textColor="@color/colorWhite"
             android:textFontWeight="1"
@@ -43,5 +43,3 @@
 
     </LinearLayout>
 </android.support.v7.widget.CardView>
-
-

@@ -1,6 +1,7 @@
 package tech.dsckiet.budgetbucket;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class SMSReceiver extends BroadcastReceiver {
 
@@ -83,7 +86,12 @@ public class SMSReceiver extends BroadcastReceiver {
 
                 // it helps to show/record messages from company(not local numbers)
 //                if(TransacFrom(phoneno))
-                Toast.makeText(context, "Mesg : " + recievedMsgTrans + "\nNumber : " + phoneno, Toast.LENGTH_LONG).show();
+
+//                String messageNotification = intent.getStringExtra("notficationMessage");
+
+//                Toast.makeText(context, messageNotification, Toast.LENGTH_SHORT).show();
+                showNotification(recievedMsgTrans,context);
+//                Toast.makeText(context, "Mesg : " + recievedMsgTrans + "\nNumber : " + phoneno, Toast.LENGTH_LONG).show();
                 //addNotification();
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST, new com.android.volley.Response.Listener<String>() {
@@ -114,21 +122,28 @@ public class SMSReceiver extends BroadcastReceiver {
 
     }
 
-    private void addNotification() {
-        int notId = 0;
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
-                .setSmallIcon(R.drawable.ic_launcher_background)
-//                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
-                .setContentTitle(phoneno)
-                .setContentText(msg)
-                .setAutoCancel(true)
-                .setDefaults(NotificationCompat.DEFAULT_ALL);
+    private void showNotification(String amount,Context context) {
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+                new Intent(context, SMSReceiver.class), 0);
 
-        Uri path = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        builder.setSound(path);
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_add_red)
+                        .setContentTitle("Budget Bucket")
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setContentText("Transaction of Rs. " +amount + " has been recorded.")
+                .setAutoCancel(true);
 
-        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(notId, builder.build());
+        Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        mBuilder.setSound(notificationSound);
+
+        mBuilder.setContentIntent(contentIntent);
+//        mBuilder.setDefaults(Notification.ALARM_SER);
+        mBuilder.setAutoCancel(true);
+        NotificationManager mNotificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(1, mBuilder.build());
+
     }
 
     private String getTransactionAmt(String inputMsg){

@@ -33,9 +33,9 @@ public class SplashActivity extends AppCompatActivity {
 
         Boolean isFirstRun = getSharedPreferences("PREFERENCES", MODE_PRIVATE)
                 .getBoolean("isfirstrun", true);
-
+        logolayout.animate().alpha(1.0f).scaleX(1.1f).scaleY(1.1f).setDuration(2500);
         if (isFirstRun) {
-            logolayout.animate().alpha(1.0f).scaleX(1.1f).scaleY(1.1f).setDuration(2500);
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

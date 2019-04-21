@@ -6,273 +6,275 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".FragmentDashboard">
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/dashboard_coordinator_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/dashboardLayout"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/dashboard_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_bar_dashboard"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/text_title_dashboard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/montserrat"
-                android:text="Dashboard"
-                android:textColor="@color/colorPrimary"
-                android:textSize="24sp"
-                android:textStyle="bold" />
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_view_chart"
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/dashboardLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="4dp"
-                android:layout_marginTop="16dp"
-                android:minHeight="300dp"
-                app:cardCornerRadius="6dp"
-                app:cardElevation="4dp">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingVertical="16dp">
+                    android:padding="16dp">
 
-                    <com.hookedonplay.decoviewlib.DecoView xmlns:custom="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/dynamic_arc_view"
-                        android:layout_width="250dp"
-                        android:layout_height="250dp"
-                        custom:dv_lineWidth="20dp" />
+                    <TextView
+                        android:id="@+id/text_title_dashboard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Dashboard"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_view_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="4dp"
+                        android:layout_marginTop="16dp"
+                        android:minHeight="300dp"
+                        app:cardCornerRadius="6dp"
+                        app:cardElevation="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingVertical="16dp">
+
+                            <com.hookedonplay.decoviewlib.DecoView xmlns:custom="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/dynamic_arc_view"
+                                android:layout_width="250dp"
+                                android:layout_height="250dp"
+                                custom:dv_lineWidth="20dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="32dp"
+                                android:layout_marginTop="14dp"
+                                android:orientation="horizontal">
+
+                                <android.support.v7.widget.CardView
+                                    android:id="@+id/cash_card_dashboard"
+                                    android:layout_width="0dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginRight="12dp"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    app:cardCornerRadius="6dp"
+                                    app:cardElevation="2dp">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/colorGoogleYellow"
+                                        android:fontFamily="@font/montserrat"
+                                        android:gravity="center"
+                                        android:text="cash"
+                                        android:textAllCaps="false"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+
+                                </android.support.v7.widget.CardView>
+
+                                <android.support.v7.widget.CardView
+                                    android:id="@+id/online_card_dashboard"
+                                    android:layout_width="0dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_weight="1"
+                                    app:cardCornerRadius="6dp"
+                                    app:cardElevation="2dp">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/colorGoogleRed"
+                                        android:fontFamily="@font/montserrat"
+                                        android:gravity="center"
+                                        android:text="online"
+                                        android:textAllCaps="false"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+
+                                </android.support.v7.widget.CardView>
+
+                            </LinearLayout>
+
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/savings_card_dashboard"
+                                android:layout_width="130dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="14dp"
+                                android:layout_marginBottom="8dp"
+                                app:cardCornerRadius="6dp"
+                                app:cardMaxElevation="2dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/colorGoogleGreen"
+                                    android:fontFamily="@font/montserrat"
+                                    android:gravity="center"
+                                    android:padding="8dp"
+                                    android:text="savings"
+                                    android:textAllCaps="false"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                            </android.support.v7.widget.CardView>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textPercentage"
+                            android:layout_width="200dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="130dp"
+                            android:fontFamily="@font/montserrat"
+                            android:gravity="center"
+                            android:text="%age Left"
+                            android:textSize="20sp" />
+
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="4dp"
+                        android:layout_marginTop="16dp"
+                        app:cardCornerRadius="6dp"
+                        app:cardElevation="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:background="@color/colorPrimary"
+                            android:orientation="vertical"
+                            android:paddingVertical="16dp">
+
+                            <TextView
+                                android:id="@+id/text_view_budget_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
+                                android:fontFamily="@font/montserrat"
+                                android:text="Budget"
+                                android:textColor="#ffffff"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/text_view_budget"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
+                                android:fontFamily="@font/montserrat"
+                                android:text="Rs. 2500"
+                                android:textColor="#ffffff"
+                                android:textSize="28sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <!--<android.support.v7.widget.CardView-->
+                    <!--android:id="@+id/card_view_transactions"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--app:cardCornerRadius="6dp"-->
+                    <!--app:cardElevation="4dp"-->
+                    <!--app:cardMaxElevation="6dp"-->
+                    <!--app:cardPreventCornerOverlap="false"-->
+                    <!--android:minHeight="100dp"-->
+                    <!--&gt;-->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Transactions"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:layout_marginHorizontal="32dp"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="4dp"
+                        android:paddingTop="4dp">
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cash_card_dashboard"
-                            android:layout_width="0dp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_weight="1"
-                            app:cardCornerRadius="8dp"
-                            android:layout_marginRight="12dp"
-                            app:cardElevation="6dp">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@color/colorGoogleYellow"
-                                android:fontFamily="@font/montserrat"
-                                android:gravity="center"
-                                android:text="cash"
-                                android:textAllCaps="false"
-                                android:textStyle="bold"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp" />
-
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/online_card_dashboard"
-                            android:layout_width="0dp"
-                            android:layout_marginLeft="12dp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_weight="1"
-                            app:cardCornerRadius="8dp"
-                            app:cardElevation="6dp">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@color/colorGoogleRed"
-                                android:fontFamily="@font/montserrat"
-                                android:gravity="center"
-                                android:text="online"
-                                android:textStyle="bold"
-                                android:textAllCaps="false"
-                                android:textColor="@android:color/white"
-                                android:textSize="16sp" />
-
-                        </android.support.v7.widget.CardView>
-
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_view_transaction"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left" />
                     </LinearLayout>
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/savings_card_dashboard"
-                        android:layout_width="130dp"
+                        android:id="@+id/more_transaction"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardMaxElevation="6dp">
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="2dp">
 
                         <TextView
-                            android:background="@color/colorGoogleGreen"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="8dp"
                             android:fontFamily="@font/montserrat"
                             android:gravity="center"
-                            android:textStyle="bold"
-                            android:text="savings"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="8dp"
+                            android:text="See More"
                             android:textAllCaps="false"
-                            android:textColor="@android:color/white"
-                            android:textSize="16sp" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                     </android.support.v7.widget.CardView>
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textPercentage"
-                    android:layout_width="200dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="130dp"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center"
-                    android:text="%age Left"
-                    android:textSize="20sp" />
+            </android.support.v4.widget.NestedScrollView>
 
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="4dp"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="6dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/colorPrimary"
-                    android:orientation="vertical"
-                    android:paddingVertical="16dp">
-
-                    <TextView
-                        android:id="@+id/text_view_budget_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Budget"
-                        android:textColor="#ffffff"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/text_view_budget"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Rs. 2500"
-                        android:textColor="#ffffff"
-                        android:textSize="28sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <!--<android.support.v7.widget.CardView-->
-            <!--android:id="@+id/card_view_transactions"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--app:cardCornerRadius="6dp"-->
-            <!--app:cardElevation="4dp"-->
-            <!--app:cardMaxElevation="6dp"-->
-            <!--app:cardPreventCornerOverlap="false"-->
-            <!--android:minHeight="100dp"-->
-            <!--&gt;-->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/montserrat"
-                android:layout_marginBottom="16dp"
-                android:text="Transactions"
-                android:textSize="24sp"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="4dp"
-                android:paddingTop="4dp">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view_transaction"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="left" />
-            </LinearLayout>
-            <android.support.v7.widget.CardView
-                android:id="@+id/more_transaction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginBottom="8dp"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="2dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center"
-                    android:text="See More"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
-                    android:textStyle="bold"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="16sp" />
-
-            </android.support.v7.widget.CardView>
-
-        </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-
-
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-</android.support.design.widget.CoordinatorLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -283,5 +285,4 @@
         android:backgroundTint="@android:color/white"
         android:scaleType="fitEnd"
         android:src="@drawable/ic_add_red" />
-
 </RelativeLayout>

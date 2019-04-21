@@ -52,7 +52,6 @@ import java.util.ArrayList;
 public class FragmentDashboard extends Fragment {
 
     private RecyclerView recyclerViewTransaction;
-    //    private ArrayList<TransactionRecyclerView> mList;
     private TransactionAdapter mAdapter;
     private int BackIndex;
     private int Series1Index;
@@ -120,22 +119,13 @@ public class FragmentDashboard extends Fragment {
         online_card = rootView.findViewById(R.id.online_card_dashboard);
         savings_card = rootView.findViewById(R.id.savings_card_dashboard);
         fab = rootView.findViewById(R.id.fab);
-        mSwipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_bar);
+        mSwipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_bar_dashboard);
         layout = rootView.findViewById(R.id.offline_layout);
         layoutDashboard = rootView.findViewById(R.id.dashboardLayout);
         coordinatorLayout = rootView.findViewById(R.id.dashboard_coordinator_layout);
 
-
-//        if(!isConnected(getActivity())){
-//            mSwipeRefreshLayout.setRefreshing(false);
-//        }else if(isConnected(getActivity())){
-//        if(isConnected(getContext()) == false){
-////         layoutDashboard.setVisibility(View.GONE);
-////         layout.setVisibility(View.VISIBLE);
-//            mSwipeRefreshLayout.setRefreshing(false);
-//            Toast.makeText(getContext(), "Offline", Toast.LENGTH_SHORT).show();
-//        }else {
             mSwipeRefreshLayout.setRefreshing(true);
+
             loadData();
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -161,10 +151,6 @@ public class FragmentDashboard extends Fragment {
                     startActivity(new Intent(getContext(), AddCashTransactionActivity.class));
                 }
             });
-//        }
-
-
-
 
         return rootView;
     }
@@ -197,7 +183,6 @@ public class FragmentDashboard extends Fragment {
                                     String type = sample.getString("type");
                                     String amount = sample.getString("amount");
                                     mList.add(new TransactionRecyclerView(type, amount));
-//                                Toast.makeText(getActivity(), amt, Toast.LENGTH_SHORT).show();
 
                                 }
                                 mAdapter = new TransactionAdapter(mList);
@@ -264,13 +249,11 @@ public class FragmentDashboard extends Fragment {
                     .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
                     .setDuration(1000)
                     .show();
-
-//            Snackbar.make(getView(),"Check your connection",2000);
         }
     }
 
     private void createBackSeries() {
-        SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor("#55D880"))
+        SeriesItem seriesItem = new SeriesItem.Builder(getResources().getColor(R.color.colorGoogleGreen))
                 .setRange(0, seriesMax, 0)
                 .setInitialVisibility(true)
                 .build();
@@ -279,9 +262,10 @@ public class FragmentDashboard extends Fragment {
 
     private void createBackSeries1() {
 
+        if(budgetAmount != 0f){
         final float cashValue = (offlineAmount / budgetAmount) * 100;
         final float onlineValue = (onlineAmount / budgetAmount) * 100;
-        final SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor("#FFAA00"))
+        final SeriesItem seriesItem = new SeriesItem.Builder(getResources().getColor(R.color.colorGoogleYellow))
                 .setRange(0, seriesMax, 0)
                 .setInitialVisibility(false)
                 .build();
@@ -302,16 +286,15 @@ public class FragmentDashboard extends Fragment {
             }
         });
         Series1Index = decoView.addSeries(seriesItem);
+        }
+
     }
 
     private void createBackSeries2() {
-        final SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor("#DF4141"))
+        final SeriesItem seriesItem = new SeriesItem.Builder(getResources().getColor(R.color.colorGoogleRed))
                 .setRange(0, seriesMax, 0)
                 .setInitialVisibility(false)
                 .build();
-
-        //final TextView textActivity2 = (TextView) findViewById(R.id.textActivity2);
-        //final TextView txt2 = findViewById(R.id.t2);
 
         seriesItem.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
             @Override
@@ -331,35 +314,42 @@ public class FragmentDashboard extends Fragment {
     }
 
     private void createEvents() {
-        final float cashValue = (offlineAmount / budgetAmount) * 100;
-        final float onlineValue = (onlineAmount / budgetAmount) * 100;
-        //decoView.executeReset();
-        decoView.addEvent(new DecoEvent.Builder(seriesMax)
-                .setIndex(BackIndex)
-                .setDuration(2000)
-                .setDelay(100)
-                .build());
+        if(budgetAmount != 0f) {
+            final float cashValue = (offlineAmount / budgetAmount) * 100;
+            final float onlineValue = (onlineAmount / budgetAmount) * 100;
+            //decoView.executeReset();
+            decoView.addEvent(new DecoEvent.Builder(seriesMax)
+                    .setIndex(BackIndex)
+                    .setDuration(2000)
+                    .setDelay(100)
+                    .build());
 
-        decoView.addEvent(new DecoEvent.Builder(DecoDrawEffect.EffectType.EFFECT_SPIRAL_OUT)
-                .setIndex(Series1Index)
-                .setDuration(1000)
-                .setDelay(1000)
-                .build());
+            decoView.addEvent(new DecoEvent.Builder(DecoDrawEffect.EffectType.EFFECT_SPIRAL_OUT)
+                    .setIndex(Series1Index)
+                    .setDuration(1000)
+                    .setDelay(1000)
+                    .build());
 
-        decoView.addEvent(new DecoEvent.Builder(cashValue + onlineValue)
-                .setIndex(Series1Index)
-                .setDelay(1000)
-                .build());
-        decoView.addEvent(new DecoEvent.Builder(DecoDrawEffect.EffectType.EFFECT_SPIRAL_OUT)
-                .setIndex(Series2Index)
-                .setDuration(1000)
-                .setDelay(1000)
-                .build());
+            decoView.addEvent(new DecoEvent.Builder(cashValue + onlineValue)
+                    .setIndex(Series1Index)
+                    .setDelay(1000)
+                    .build());
+            decoView.addEvent(new DecoEvent.Builder(DecoDrawEffect.EffectType.EFFECT_SPIRAL_OUT)
+                    .setIndex(Series2Index)
+                    .setDuration(1000)
+                    .setDelay(1000)
+                    .build());
 
-        decoView.addEvent(new DecoEvent.Builder(onlineValue)
-                .setIndex(Series2Index)
-                .setDelay(1000)
-                .build());
+            decoView.addEvent(new DecoEvent.Builder(onlineValue)
+                    .setIndex(Series2Index)
+                    .setDelay(1000)
+                    .build());
+        }else {
+            Snackbar.make(coordinatorLayout, "Please enter your budget.", Snackbar.LENGTH_LONG)
+                    .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
+                    .setDuration(1000)
+                    .show();
+        }
     }
 
     private void createEventCash() {
@@ -373,78 +363,93 @@ public class FragmentDashboard extends Fragment {
     }
 
     private void createBackSeries1a() {
-        final float cashValue = (offlineAmount / budgetAmount) * 100;
-        final float onlineValue = (onlineAmount / budgetAmount) * 100;
-        final SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor("#FFAA00"))
-                .setRange(0, seriesMax, 0)
-                .setInitialVisibility(false)
-                .build();
-        final TextView textPercentage = getView().findViewById(R.id.textPercentage);
-        //final TextView txt1 = findViewById(R.id.t1);
-        seriesItem.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
-            @Override
-            public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
-                float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
-                textPercentage.setText("Spent : " + "\n" + String.format("%.0f%%", (percentFilled * 100f)));
-                //txt1.setText(String.format("%.0f%%",  (percentFilled * 100f)-(1200/50)));
-            }
+        if(budgetAmount != 0f) {
+            final float cashValue = (offlineAmount / budgetAmount) * 100;
+            final float onlineValue = (onlineAmount / budgetAmount) * 100;
+            final SeriesItem seriesItem = new SeriesItem.Builder(getResources().getColor(R.color.colorGoogleYellow))
+                    .setRange(0, seriesMax, 0)
+                    .setInitialVisibility(false)
+                    .build();
+            final TextView textPercentage = getView().findViewById(R.id.textPercentage);
+            //final TextView txt1 = findViewById(R.id.t1);
+            seriesItem.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
+                @Override
+                public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
+                    float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
+                    textPercentage.setText("Spent : " + "\n" + String.format("%.0f%%", (percentFilled * 100f)));
+                    //txt1.setText(String.format("%.0f%%",  (percentFilled * 100f)-(1200/50)));
+                }
 
-            @Override
-            public void onSeriesItemDisplayProgress(float percentComplete) {
+                @Override
+                public void onSeriesItemDisplayProgress(float percentComplete) {
 //                final TextView txt2 = findViewById(R.id.t2);
 //                txt2.setText(Float.toString(percentComplete*100f));
-            }
-        });
-        Series1Index = decoView.addSeries(seriesItem);
-        decoView.addEvent(new DecoEvent.Builder(DecoDrawEffect.EffectType.EFFECT_SPIRAL_OUT)
-                .setIndex(Series1Index)
-                .setDuration(1000)
-                .setDelay(1000)
-                .build());
+                }
+            });
+            Series1Index = decoView.addSeries(seriesItem);
+            decoView.addEvent(new DecoEvent.Builder(DecoDrawEffect.EffectType.EFFECT_SPIRAL_OUT)
+                    .setIndex(Series1Index)
+                    .setDuration(1000)
+                    .setDelay(1000)
+                    .build());
 
-        decoView.addEvent(new DecoEvent.Builder(cashValue)
-                .setIndex(Series1Index)
-                .setDelay(1000)
-                .build());
+            decoView.addEvent(new DecoEvent.Builder(cashValue)
+                    .setIndex(Series1Index)
+                    .setDelay(1000)
+                    .build());
+        }
+        else{
+            Snackbar.make(coordinatorLayout, "Please enter your budget.", Snackbar.LENGTH_LONG)
+                    .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
+                    .setDuration(1000)
+                    .show();
+        }
     }
 
     private void createBackSeries2a() {
-        final float cashValue = (offlineAmount / budgetAmount) * 100;
-        final float onlineValue = (onlineAmount / budgetAmount) * 100;
-        final SeriesItem seriesItem = new SeriesItem.Builder(Color.parseColor("#DF4141"))
-                .setRange(0, seriesMax, 0)
-                .setInitialVisibility(false)
-                .build();
+        if(budgetAmount != 0f) {
+            final float cashValue = (offlineAmount / budgetAmount) * 100;
+            final float onlineValue = (onlineAmount / budgetAmount) * 100;
+            final SeriesItem seriesItem = new SeriesItem.Builder(getResources().getColor(R.color.colorGoogleRed))
+                    .setRange(0, seriesMax, 0)
+                    .setInitialVisibility(false)
+                    .build();
 
-        //final TextView textActivity2 = (TextView) findViewById(R.id.textActivity2);
-        //final TextView txt2 = findViewById(R.id.t2);
-        final TextView textPercentage = getView().findViewById(R.id.textPercentage);
-        seriesItem.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
-            @Override
-            public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
-                float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
-                //txt2.setText(String.format("%.0f%%",  (percentFilled * 100f)));
-                textPercentage.setText("Spent : " + "\n" + String.format("%.0f%%", (percentFilled * 100f)));
-            }
+            //final TextView textActivity2 = (TextView) findViewById(R.id.textActivity2);
+            //final TextView txt2 = findViewById(R.id.t2);
+            final TextView textPercentage = getView().findViewById(R.id.textPercentage);
+            seriesItem.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
+                @Override
+                public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
+                    float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
+                    //txt2.setText(String.format("%.0f%%",  (percentFilled * 100f)));
+                    textPercentage.setText("Spent : " + "\n" + String.format("%.0f%%", (percentFilled * 100f)));
+                }
 
-            @Override
-            public void onSeriesItemDisplayProgress(float percentComplete) {
+                @Override
+                public void onSeriesItemDisplayProgress(float percentComplete) {
 //                final TextView txt1 = findViewById(R.id.t1);
 //                txt1.setText(Float.toString(percentComplete*100f));
-            }
-        });
+                }
+            });
 
-        Series2Index = decoView.addSeries(seriesItem);
-        decoView.addEvent(new DecoEvent.Builder(DecoDrawEffect.EffectType.EFFECT_SPIRAL_OUT)
-                .setIndex(Series2Index)
-                .setDuration(1000)
-                .setDelay(1000)
-                .build());
+            Series2Index = decoView.addSeries(seriesItem);
+            decoView.addEvent(new DecoEvent.Builder(DecoDrawEffect.EffectType.EFFECT_SPIRAL_OUT)
+                    .setIndex(Series2Index)
+                    .setDuration(1000)
+                    .setDelay(1000)
+                    .build());
 
-        decoView.addEvent(new DecoEvent.Builder(onlineValue)
-                .setIndex(Series2Index)
-                .setDelay(1000)
-                .build());
+            decoView.addEvent(new DecoEvent.Builder(onlineValue)
+                    .setIndex(Series2Index)
+                    .setDelay(1000)
+                    .build());
+        }else{
+            Snackbar.make(coordinatorLayout, "Please enter your budget.", Snackbar.LENGTH_LONG)
+                    .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
+                    .setDuration(1000)
+                    .show();
+        }
     }
 
 }
