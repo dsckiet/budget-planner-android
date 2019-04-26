@@ -42,6 +42,7 @@ import com.hookedonplay.decoviewlib.DecoView;
 import com.hookedonplay.decoviewlib.charts.DecoDrawEffect;
 import com.hookedonplay.decoviewlib.charts.SeriesItem;
 import com.hookedonplay.decoviewlib.events.DecoEvent;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,7 +68,7 @@ public class FragmentDashboard extends Fragment {
     private android.support.v4.widget.NestedScrollView layout, layoutDashboard;
     private CoordinatorLayout coordinatorLayout;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-
+    private BottomNavigationViewEx navigationView;
     private TextView budgetTV;
     private RequestQueue mQueue;
     private FirebaseAuth mAuth;
@@ -125,7 +126,8 @@ public class FragmentDashboard extends Fragment {
         layout = rootView.findViewById(R.id.offline_layout);
         layoutDashboard = rootView.findViewById(R.id.dashboardLayout);
         coordinatorLayout = rootView.findViewById(R.id.dashboard_coordinator_layout);
-
+//        navigationView = (BottomNavigationViewEx) rootView.findViewById(R.id.bottom_nav);
+//        navigationView.setClickable(false);
         mSwipeRefreshLayout.setRefreshing(true);
 
         loadData();
@@ -150,7 +152,9 @@ public class FragmentDashboard extends Fragment {
 
 
         return rootView;
+
     }
+
 
     private void loadData() {
         if (isConnected(getActivity())) {
@@ -249,7 +253,7 @@ public class FragmentDashboard extends Fragment {
                     error.printStackTrace();
                 }
             });
-
+            
             mQueue.add(request);
             //End of JSON Volley}
         } else if (!isConnected(getActivity())) {
@@ -259,6 +263,22 @@ public class FragmentDashboard extends Fragment {
                     .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
                     .setDuration(1000)
                     .show();
+        }
+
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mQueue != null) {
+//            mQueue.cancelAll(this);
+            mQueue.cancelAll(new RequestQueue.RequestFilter() {
+                @Override
+                public boolean apply(Request<?> request) {
+                    return true;
+                }
+            });
         }
     }
 

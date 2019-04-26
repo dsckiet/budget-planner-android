@@ -10,11 +10,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,7 +20,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,8 +68,8 @@ public class SMSReceiver extends BroadcastReceiver {
                     msg = message[i].getMessageBody();
                     phoneno = message[i].getOriginatingAddress();
                     if (isDebited(msg)) {
-                        recievedMsgTrans = getTransactionAmt(msg);
-                    } else recievedMsgTrans = "is a credit message ";
+                        recievedMsgTrans = getTransactionAmt(msg);   }
+//                    } else recievedMsgTrans = "is a credit message ";
 //                    if(isLegalCompanyText(phoneno)){
 //                        realComapanyPhn = phoneno;
 //                    } else{
@@ -85,8 +81,10 @@ public class SMSReceiver extends BroadcastReceiver {
                 }
 
                 // it helps to show/record messages from company(not local numbers)
-                if(TransacFrom(phoneno))
+//                if(TransacFrom(phoneno))
+                if(recievedMsgTrans != null){
                 showNotification(recievedMsgTrans,context);
+                }
 //                Toast.makeText(context, "Mesg : " + recievedMsgTrans + "\nNumber : " + phoneno, Toast.LENGTH_LONG).show();
                 //addNotification();
 
@@ -185,16 +183,19 @@ public class SMSReceiver extends BroadcastReceiver {
 //    }
     private static Boolean isDebited(String inputMsg) {
         Boolean returnValue = false;
-        if (isOfType1(inputMsg))
-            returnValue = true;
-        else if (isOfType2(inputMsg))
-            returnValue = true;
-        else if (isOfType3(inputMsg))
-            returnValue = true;
-        else if(isOfType4(inputMsg))
-            returnValue = true;
-        else returnValue = false;
-
+        if(isOfType5(inputMsg)) {
+            if (isOfType1(inputMsg))
+                returnValue = true;
+            else if (isOfType2(inputMsg))
+                returnValue = true;
+            else if (isOfType3(inputMsg))
+                returnValue = true;
+            else if (isOfType4(inputMsg))
+                returnValue = true;
+            else returnValue = false;
+        }else {
+            returnValue = false;
+        }
 
         return returnValue;
     }
@@ -266,6 +267,20 @@ public class SMSReceiver extends BroadcastReceiver {
                 break;
             } else
                 returnValue = false;
+        }
+        return returnValue;
+    }
+
+    private static Boolean isOfType5(String inputMsg) {
+        Boolean returnValue = true;
+        String type1 = "a/c";
+        String input = inputMsg.toLowerCase();
+        for (int i = 0; i < input.length()-2; i++) {
+            if (input.substring(i, i + 3).equals(type1)) {
+                returnValue = false;
+                break;
+            } else
+                returnValue = true;
         }
         return returnValue;
     }

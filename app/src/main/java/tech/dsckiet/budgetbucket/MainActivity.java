@@ -1,11 +1,8 @@
 package tech.dsckiet.budgetbucket;
 
 import android.Manifest;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -16,8 +13,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return connected;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +70,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if(isConnected(getApplicationContext()) == false){
-result_fun();}else{
+        if (isConnected(getApplicationContext()) == false) {
+            result_fun();
+        } else {
             layout.setVisibility(View.GONE);
         }
 
@@ -109,13 +106,12 @@ result_fun();}else{
                 );
     }
 
-    public void result_fun(){
+    public void result_fun() {
 
-            mContainer.setVisibility(View.GONE);
-            layout.setVisibility(View.VISIBLE);
+        mContainer.setVisibility(View.GONE);
+        layout.setVisibility(View.VISIBLE);
 
     }
-
 
 
     //Bottom Navigation
@@ -125,24 +121,23 @@ result_fun();}else{
         public boolean onNavigationItemSelected(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    if(isConnected(getApplicationContext())){
-                    replaceFragment(new FragmentDashboard());}
-                    else{
+                    if (isConnected(getApplicationContext())) {
+                        replaceFragment(new FragmentDashboard());
+                    } else {
                         result_fun();
                     }
                     break;
                 case R.id.nav_account:
-                    if(isConnected(getApplicationContext())){
-                    replaceFragment(new FragmentProfile());}
-                    else{
+                    if (isConnected(getApplicationContext())) {
+                        replaceFragment(new FragmentProfile());
+                    } else {
                         result_fun();
                     }
                     break;
                 case R.id.nav_settings:
-                    if(isConnected(getApplicationContext())){
-                    replaceFragment(new FragmentSettings());}
-                    else
-                    {
+                    if (isConnected(getApplicationContext())) {
+                        replaceFragment(new FragmentSettings());
+                    } else {
                         result_fun();
                     }
                     break;
@@ -167,14 +162,15 @@ result_fun();}else{
         }
     }
 
-    private void defaultFragment(){
+    private void defaultFragment() {
         replaceFragment(new FragmentProfile());
         navigationView.getMenu().getItem(0).setChecked(true);
     }
-    public void updateBottomNavigationTitle(Fragment f){
+
+    public void updateBottomNavigationTitle(Fragment f) {
         String className = f.getClass().getName();
 
-        if(className.equals(FragmentDashboard.class.getName()))
+        if (className.equals(FragmentDashboard.class.getName()))
             navigationView.getMenu().getItem(1).setChecked(true);
 
 
@@ -191,17 +187,16 @@ result_fun();}else{
             super.onBackPressed();
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode)
-        {
-            case MY_PERMISSIONS_REQUEST_RECEIVE_SMS:
-            {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_RECEIVE_SMS: {
                 //check whether the length of grantResults is greater than 0 and is equal to PERMISSION_GRANTED
-                if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //broadcast receiver works in background
                     Toast.makeText(this, "Permission Permitted", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     Toast.makeText(this, "Please Permit the permission for further functioning", Toast.LENGTH_SHORT).show();
                 }
             }
