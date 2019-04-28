@@ -253,7 +253,7 @@ public class FragmentDashboard extends Fragment {
                     error.printStackTrace();
                 }
             });
-            
+
             mQueue.add(request);
             //End of JSON Volley}
         } else if (!isConnected(getActivity())) {

@@ -5,11 +5,15 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import com.android.volley.AuthFailureError;
@@ -80,45 +84,60 @@ public class SMSReceiver extends BroadcastReceiver {
 
                 }
 
-                // it helps to show/record messages from company(not local numbers)
+                //TODO:: it helps to show/record messages from company(not local numbers)
 //                if(TransacFrom(phoneno))
                 if(recievedMsgTrans != null){
                 showNotification(recievedMsgTrans,context);
+
+                    SharedPreferences prefs = context.getSharedPreferences("DATA",0);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("OnlineAmount", recievedMsgTrans); //InputString: from the EditText
+                    editor.commit();
+
+//                    editor.clear();
+
+//                    Intent intentSend = new Intent(context,AddCashTransactionActivity.class).putExtra("OnlineAmount", recievedMsgTrans);
+//                    LocalBroadcastManager.getInstance(context).sendBroadcast(intentSend);
+
                 }
 //                Toast.makeText(context, "Mesg : " + recievedMsgTrans + "\nNumber : " + phoneno, Toast.LENGTH_LONG).show();
                 //addNotification();
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST, new com.android.volley.Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-//                        Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
-                        Log.e(TAG, "onResponse: " + "DATA PUSHED" );
-                    }
-                }, new com.android.volley.Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("amount", recievedMsgTrans);
-                        params.put("type", type);
-                        return params;
-                    }
-                };
-
-                RequestQueue requestQueue = Volley.newRequestQueue(context);
-                requestQueue.add(stringRequest);
+//                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST, new com.android.volley.Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+////                        Toast.makeText(context, response, Toast.LENGTH_SHORT).show();
+//                        Log.e(TAG, "onResponse: " + "DATA PUSHED" );
+//                    }
+//                }, new com.android.volley.Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        error.printStackTrace();
+//                    }
+//                }) {
+//                    @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//                        Map<String, String> params = new HashMap<>();
+//                        params.put("amount", recievedMsgTrans);
+//                        params.put("type", type);
+//                        return params;
+//                    }
+//                };
+//
+//                RequestQueue requestQueue = Volley.newRequestQueue(context);
+//                requestQueue.add(stringRequest);
             }
         }
 
     }
 
     private void showNotification(String amount,Context context) {
+        Intent notIntent = new Intent(context,AddCashTransactionActivity.class);
+//        notIntent.putExtra("OnlineAmount",recievedMsgTrans);
+//        context.startActivity(notIntent);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, SMSReceiver.class), 0);
+                notIntent, 0);
+
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
@@ -128,10 +147,13 @@ public class SMSReceiver extends BroadcastReceiver {
                         .setContentText("Transaction of Rs. " +amount + " has been recorded.")
                 .setAutoCancel(true);
 
+
+
         Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         mBuilder.setSound(notificationSound);
 
         mBuilder.setContentIntent(contentIntent);
+
 //        mBuilder.setDefaults(Notification.ALARM_SER);
         mBuilder.setAutoCancel(true);
         NotificationManager mNotificationManager =

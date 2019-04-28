@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         layout = findViewById(R.id.offline_layout);
         btn_refresh_offline = findViewById(R.id.refresh_offline);
 
+
         //check if the permission is not granted
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
             //if the permission is not been granted then check
