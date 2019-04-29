@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tech.dsckiet.budgetbucket">
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-        <application xmlns:tools="http://schemas.android.com/tools"
+    <application xmlns:tools="http://schemas.android.com/tools"
+        android:name=".Notification"
         android:allowBackup="true"
-        android:icon="@drawable/dsc"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -25,11 +26,13 @@
 
         </activity>
         <activity android:name=".IntroductionActivity" />
-        <activity android:name=".EditBudgetActivity"/>
-        <activity android:name=".AddCashTransactionActivity"/>
-        <activity android:name=".TransactionsActivity"/>
-<activity android:name=".AuthActivity"
-    android:screenOrientation="portrait"/>
+        <activity android:name=".EditBudgetActivity" />
+        <activity android:name=".AddCashTransactionActivity" />
+        <activity android:name=".TransactionsActivity" />
+        <activity
+            android:name=".AuthActivity"
+            android:screenOrientation="portrait" />
+
         <receiver
             android:name=".SMSReceiver"
             android:enabled="true"
@@ -40,7 +43,6 @@
                 </action>
             </intent-filter>
         </receiver>
-
-
+        <service android:name=".BackgroundService" />
     </application>
 </manifest>

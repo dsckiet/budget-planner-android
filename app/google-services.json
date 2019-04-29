@@ -15,19 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "96843913328-iff9qj4r5rfubl37lk9lcdsrehn35khd.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "tech.dsckiet.budgetbucket",
-            "certificate_hash": "1f06dda329e153425c86820162ccba5624b5c5e0"
-          }
-        },
-        {
           "client_id": "96843913328-cod2pmglv8ulqs3odm17j852rdp0uj23.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "tech.dsckiet.budgetbucket",
             "certificate_hash": "7da30b654a6f6fdbb40eea2bfd2df6a56b97d689"
+          }
+        },
+        {
+          "client_id": "96843913328-dk2qrjmr2uqjcsrsc4jinvlpfreckb4l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tech.dsckiet.budgetbucket",
+            "certificate_hash": "1f06dda329e153425c86820162ccba5624b5c5e0"
           }
         },
         {

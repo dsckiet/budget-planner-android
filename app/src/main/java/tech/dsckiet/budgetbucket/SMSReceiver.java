@@ -1,33 +1,21 @@
 package tech.dsckiet.budgetbucket;
 
-import android.app.NotificationManager;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.app.NotificationManagerCompat;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import java.util.HashMap;
-import java.util.Map;
 
-
+import static tech.dsckiet.budgetbucket.Notification.channel_ID;
 public class SMSReceiver extends BroadcastReceiver {
 
     private Context mContext;
@@ -36,7 +24,7 @@ public class SMSReceiver extends BroadcastReceiver {
     private String msg, phoneno, recievedMsgTrans, realComapanyPhn, m, debitedMsgText;
 
     private FirebaseAuth mAuth;
-
+    private NotificationManagerCompat notificationManager;
     private String mail() {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -87,22 +75,14 @@ public class SMSReceiver extends BroadcastReceiver {
                 //TODO:: it helps to show/record messages from company(not local numbers)
 //                if(TransacFrom(phoneno))
                 if(recievedMsgTrans != null){
-                showNotification(recievedMsgTrans,context);
+//                showNotification(recievedMsgTrans,context);
 
-                    SharedPreferences prefs = context.getSharedPreferences("DATA",0);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("OnlineAmount", recievedMsgTrans); //InputString: from the EditText
-                    editor.commit();
-
-//                    editor.clear();
-
-//                    Intent intentSend = new Intent(context,AddCashTransactionActivity.class).putExtra("OnlineAmount", recievedMsgTrans);
-//                    LocalBroadcastManager.getInstance(context).sendBroadcast(intentSend);
+                    Intent intentService = new Intent(context,BackgroundService.class);
+                    intentService.putExtra("inputExtra",recievedMsgTrans);
+                    context.startService(intentService);
 
                 }
-//                Toast.makeText(context, "Mesg : " + recievedMsgTrans + "\nNumber : " + phoneno, Toast.LENGTH_LONG).show();
-                //addNotification();
-
+                //POST METHOD of online transaction recorded in background.
 //                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST, new com.android.volley.Response.Listener<String>() {
 //                    @Override
 //                    public void onResponse(String response) {
@@ -131,34 +111,42 @@ public class SMSReceiver extends BroadcastReceiver {
 
     }
 
-    private void showNotification(String amount,Context context) {
-        Intent notIntent = new Intent(context,AddCashTransactionActivity.class);
-//        notIntent.putExtra("OnlineAmount",recievedMsgTrans);
-//        context.startActivity(notIntent);
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                notIntent, 0);
+//    //todo:
+//    private void sendToService(String newData){
+//        Intent broadcastIntent = new Intent();
+//        broadcastIntent.setAction("ServiceToActivityAction");
+//        broadcastIntent.putExtra("ServiceToActivityKey", newData);
+//        mContext.sendBroadcast(broadcastIntent);
+//    }
+//
+//    public void showNotification(String amount,Context context) {
+//        Intent notIntent = new Intent(context,AddCashTransactionActivity.class);
+//
+//        PendingIntent contentIntent = PendingIntent.getBroadcast(context, 0,
+//                notIntent, 0);
+//
+//        Notification mBuilder =
+//                new NotificationCompat.Builder(context,channel_ID)
+//                        .setSmallIcon(R.drawable.ic_add_red)
+//                        .setContentTitle("Budget Bucket")
+//                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+//                        .setContentIntent(contentIntent)
+//                        .setOnlyAlertOnce(true)
+//                        .setContentText("Transaction of Rs. " +amount + " has been recorded.")
+//                .setAutoCancel(true)
+//                .build();
+//
 
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_add_red)
-                        .setContentTitle("Budget Bucket")
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setContentText("Transaction of Rs. " +amount + " has been recorded.")
-                .setAutoCancel(true);
+//        Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//        mBuilder.setSound(notificationSound);
 
-
-
-        Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        mBuilder.setSound(notificationSound);
-
-        mBuilder.setContentIntent(contentIntent);
 
 //        mBuilder.setDefaults(Notification.ALARM_SER);
-        mBuilder.setAutoCancel(true);
-        NotificationManager mNotificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(1, mBuilder.build());
+//        NotificationManager mNotificationManager =
+//                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1, mBuilder);
 
     }
 

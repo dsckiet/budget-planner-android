@@ -18,7 +18,7 @@ public class Notification extends Application {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel1 = new NotificationChannel(
                     channel_ID,
-                    "Channel",
+                    "ChannelNotification",
                     NotificationManager.IMPORTANCE_HIGH
             );
             channel1.setDescription("This is test channel");

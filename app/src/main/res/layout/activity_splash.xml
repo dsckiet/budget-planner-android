@@ -6,5 +6,5 @@
     android:background="@color/colorWhite"
     android:id="@+id/logo"
     android:padding="84dp"
-    android:src="@drawable/dsc"
+    android:src="@drawable/logo"
     tools:context=".SplashActivity" />

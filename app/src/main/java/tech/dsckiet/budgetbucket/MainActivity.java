@@ -1,7 +1,12 @@
 package tech.dsckiet.budgetbucket;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -13,6 +18,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +31,8 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
+import static tech.dsckiet.budgetbucket.Notification.channel_ID;
 
 public class MainActivity extends AppCompatActivity {
     private FrameLayout mContainer;
@@ -57,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         layout = findViewById(R.id.offline_layout);
         btn_refresh_offline = findViewById(R.id.refresh_offline);
 
-
         //check if the permission is not granted
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
             //if the permission is not been granted then check
@@ -87,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
         //bottom navigation
         navigationView = (BottomNavigationViewEx) findViewById(R.id.bottom_nav);
         navigationView.enableAnimation(false);
@@ -203,4 +213,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }

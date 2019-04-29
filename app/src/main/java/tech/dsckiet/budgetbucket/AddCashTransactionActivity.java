@@ -77,19 +77,11 @@ public class AddCashTransactionActivity extends AppCompatActivity {
         });
 
         //TODO:: getIntent from Notification and if type notification is clicked setChecked online radio button else offline radio button
-//        Intent getNotIntent = getIntent();
-//        amountOnline = getNotIntent.getStringExtra("OnlineAmount");
-//        Toast.makeText(this, amountOnline, Toast.LENGTH_SHORT).show();
-
-
-
-
         SharedPreferences prefs = getSharedPreferences("DATA",0);
         String data = prefs.getString("OnlineAmount", " 0.0");
         float f=Float.parseFloat(data);
         int a = (int) Math.round(f);
         String str1 = Integer.toString(a);
-
 
         if(a != 0){
             etAddCash.setText(str1);
@@ -101,6 +93,8 @@ public class AddCashTransactionActivity extends AppCompatActivity {
         btnAddCash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent serviceIntent = new Intent(getApplicationContext(),BackgroundService.class);
+                stopService(serviceIntent);
                 SharedPreferences mPrefs = getSharedPreferences("DATA",0);
                 SharedPreferences.Editor editor = mPrefs.edit();
                 editor.clear();
