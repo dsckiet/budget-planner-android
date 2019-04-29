@@ -146,9 +146,9 @@ public class SMSReceiver extends BroadcastReceiver {
 //        mBuilder.setDefaults(Notification.ALARM_SER);
 //        NotificationManager mNotificationManager =
 //                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(1, mBuilder);
-
-    }
+//        notificationManager.notify(1, mBuilder);
+//
+//    }
 
     private String getTransactionAmt(String inputMsg){
         String x = "Rs.";

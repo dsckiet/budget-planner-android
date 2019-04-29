@@ -42,13 +42,16 @@ public class BackgroundService extends Service {
                             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                             .setContentIntent(pendingIntent)
                             .setOnlyAlertOnce(true)
+                            .setColor(getResources().getColor(R.color.colorPrimary))
                             .setContentText("Transaction of Rs. " +input + " has been recorded.")
                             .setAutoCancel(true)
                             .build();
+
             SharedPreferences prefs = getSharedPreferences("DATA",0);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("OnlineAmount", input); //InputString: from the EditText
             editor.commit();
+
 
         startForeground(1,mBuilder);
         }
