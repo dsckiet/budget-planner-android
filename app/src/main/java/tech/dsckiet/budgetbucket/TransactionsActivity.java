@@ -37,29 +37,12 @@ public class TransactionsActivity extends AppCompatActivity {
         return mail;
     }
 
-    String URL_POST="https://tranquil-coast-71727.herokuapp.com/api/v1/transactions_in_last_month/" +mail();
+    String URL_POST = "https://tranquil-coast-71727.herokuapp.com/api/v1/transactions_in_last_month/" + mail();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transactions);
-
-//        final ArrayList<TransactionRecyclerView> transactionList = new ArrayList<>();
-//        recyclerViewTransactionMore = findViewById(R.id.recycler_view_more_transaction);
-//        transactionList.add(new TransactionRecyclerView("Online", "Rs. 110"));
-//        transactionList.add(new TransactionRecyclerView("Offline", "Rs. 20"));
-//        transactionList.add(new TransactionRecyclerView("Online", "Rs. 80"));
-//        transactionList.add(new TransactionRecyclerView("Offline", "Rs. 80"));
-//        transactionList.add(new TransactionRecyclerView("Offline", "Rs. 600"));
-//
-//        mAdapter = new TransactionAdapter(transactionList);
-//        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-//        recyclerViewTransactionMore.setLayoutManager(layoutManager);
-//
-//        recyclerViewTransactionMore.setItemAnimator(new DefaultItemAnimator());
-//
-//        recyclerViewTransactionMore.setAdapter(mAdapter);
-
 
         mMoreTransactionList = new ArrayList<>();
 
@@ -67,6 +50,7 @@ public class TransactionsActivity extends AppCompatActivity {
         parseJSON();
 
     }
+
     private void parseJSON() {
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_POST, null,
@@ -93,7 +77,6 @@ public class TransactionsActivity extends AppCompatActivity {
 
 
                             mMoreAdapter = new MoreTransactionAdapter(TransactionsActivity.this, mMoreTransactionList);
-//                            recyclerViewTransactionMore.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                             recyclerViewTransactionMore.setAdapter(mMoreAdapter);
                             mMoreAdapter.notifyDataSetChanged();

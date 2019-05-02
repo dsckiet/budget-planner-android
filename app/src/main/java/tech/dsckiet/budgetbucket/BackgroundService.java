@@ -28,14 +28,14 @@ public class BackgroundService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Toast.makeText(this, "Service is starting", Toast.LENGTH_SHORT).show();
-        if(intent.getStringExtra("inputExtra") != null) {
+        if (intent.getStringExtra("inputExtra") != null) {
             String input = intent.getStringExtra("inputExtra");
 
             Intent notificationIntent = new Intent(this, AddCashTransactionActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
             Notification mBuilder =
-                    new NotificationCompat.Builder(this,channel_ID)
+                    new NotificationCompat.Builder(this, channel_ID)
                             .setSmallIcon(R.drawable.ic_add_red)
                             .setContentTitle("Budget Bucket")
                             .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -43,17 +43,19 @@ public class BackgroundService extends Service {
                             .setContentIntent(pendingIntent)
                             .setOnlyAlertOnce(true)
                             .setColor(getResources().getColor(R.color.colorPrimary))
-                            .setContentText("Transaction of Rs. " +input + " has been recorded.")
+                            .setContentText("Add Rs." + input + "to Budget Bucket")
                             .setAutoCancel(true)
                             .build();
 
-            SharedPreferences prefs = getSharedPreferences("DATA",0);
+
+            SharedPreferences prefs = getSharedPreferences("DATA", 0);
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("OnlineAmount", input); //InputString: from the EditText
+            editor.putString("OnlineAmount", input);
+
             editor.commit();
 
 
-        startForeground(1,mBuilder);
+            startForeground(1, mBuilder);
         }
         //   stopSelf();
         return START_NOT_STICKY;

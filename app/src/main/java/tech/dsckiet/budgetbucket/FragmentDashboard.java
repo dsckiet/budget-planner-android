@@ -2,33 +2,25 @@ package tech.dsckiet.budgetbucket;
 
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -113,9 +105,8 @@ public class FragmentDashboard extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         budgetTV = rootView.findViewById(R.id.text_view_budget);
-        //super.onViewCreated(view, savedInstanceState);
 
-
+        //findviewByIDs
         recyclerViewTransaction = rootView.findViewById(R.id.recycler_view_transaction);
         decoView = rootView.findViewById(R.id.dynamic_arc_view);
         cash_card = rootView.findViewById(R.id.cash_card_dashboard);
@@ -149,8 +140,6 @@ public class FragmentDashboard extends Fragment {
                 startActivity(intent);
             }
         });
-
-
         return rootView;
 
     }
@@ -174,10 +163,24 @@ public class FragmentDashboard extends Fragment {
                                 offlineAmount = Float.parseFloat(offlineAmt);
                                 String budgetAmt = data.getString("budget");
                                 budgetAmount = Float.parseFloat(budgetAmt);
+
                                 String leftAmt = data.getString("left_amount");
                                 leftAmount = Float.parseFloat(leftAmt);
                                 String savingsAmt = data.getString("savings");
                                 savings = Float.parseFloat(savingsAmt);
+
+                                int savingInt = Integer.parseInt(savingsAmt);
+                                int leftAmountInt = Integer.parseInt(leftAmt);
+
+                                //left amount and savings status sent to bottom sheet dialog
+                                SharedPreferences prefs = getContext().getSharedPreferences("BottomSheet", 0);
+                                SharedPreferences.Editor editor = prefs.edit();
+                                editor.putInt("savings", savingInt);
+                                editor.putInt("leftAmount", leftAmountInt);
+
+                                editor.commit();
+
+
                                 JSONArray transactions = data.getJSONArray("transactions");
                                 for (int i = 0; i < transactions.length(); i++) {
                                     JSONObject sample = transactions.getJSONObject(i);
@@ -197,7 +200,8 @@ public class FragmentDashboard extends Fragment {
                                 mSwipeRefreshLayout.setRefreshing(false);
 
 
-                                if (budgetAmt != null) {
+                                if (budgetAmt != null && savings == 1) {
+
                                     createBackSeries();
                                     createBackSeries1();
                                     createBackSeries2();
@@ -240,6 +244,11 @@ public class FragmentDashboard extends Fragment {
                                             }
                                         }
                                     });
+                                } else {
+                                    Snackbar.make(coordinatorLayout, "Please enter your budget.", Snackbar.LENGTH_LONG)
+                                            .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
+                                            .setDuration(1000)
+                                            .show();
                                 }
 
                             } catch (JSONException e) {
@@ -264,15 +273,12 @@ public class FragmentDashboard extends Fragment {
                     .setDuration(1000)
                     .show();
         }
-
-
     }
 
     @Override
     public void onStop() {
         super.onStop();
         if (mQueue != null) {
-//            mQueue.cancelAll(this);
             mQueue.cancelAll(new RequestQueue.RequestFilter() {
                 @Override
                 public boolean apply(Request<?> request) {
@@ -300,24 +306,20 @@ public class FragmentDashboard extends Fragment {
                     .setInitialVisibility(false)
                     .build();
             final TextView textPercentage = getView().findViewById(R.id.textPercentage);
-            //final TextView txt1 = findViewById(R.id.t1);
             seriesItem.addArcSeriesItemListener(new SeriesItem.SeriesItemListener() {
                 @Override
                 public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
                     //float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
-                    if(savings == 1f ){
+                    if (savings == 1f) {
                         textPercentage.setText("Savings : " + "\n \n" + "Rs. " + String.format("%.01f", leftAmount));
-                    }else if(savings == 0f){
-                        textPercentage.setText("\n"+" No savings.");
+                    } else if (savings == 0f) {
+                        textPercentage.setText("\n" + " No savings.");
                     }
-//
-                    //txt1.setText(String.format("%.0f%%",  (percentFilled * 100f)-(1200/50)));
+
                 }
 
                 @Override
                 public void onSeriesItemDisplayProgress(float percentComplete) {
-//                final TextView txt2 = findViewById(R.id.t2);
-//                txt2.setText(Float.toString(percentComplete*100f));
                 }
             });
             Series1Index = decoView.addSeries(seriesItem);
@@ -411,7 +413,7 @@ public class FragmentDashboard extends Fragment {
                 @Override
                 public void onSeriesItemAnimationProgress(float percentComplete, float currentPosition) {
 //                    float percentFilled = ((currentPosition - seriesItem.getMinValue()) / (seriesItem.getMaxValue() - seriesItem.getMinValue()));
-                    textPercentage.setText("Cash : " + "\n \n" + "Rs. "+String.format("%.01f", offlineAmount) );
+                    textPercentage.setText("Cash : " + "\n \n" + "Rs. " + String.format("%.01f", offlineAmount));
                     //txt1.setText(String.format("%.0f%%",  (percentFilled * 100f)-(1200/50)));
                 }
 
@@ -433,10 +435,11 @@ public class FragmentDashboard extends Fragment {
                     .setDelay(1000)
                     .build());
         } else {
-            Snackbar.make(coordinatorLayout, "Please enter your budget.", Snackbar.LENGTH_LONG)
+            Snackbar.make(coordinatorLayout, "Please enter your budget 1.", Snackbar.LENGTH_LONG)
                     .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
                     .setDuration(1000)
                     .show();
+
         }
     }
 

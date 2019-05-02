@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,20 +29,19 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
 
 public class FragmentSettings extends Fragment {
 
-    private LinearLayout setting_share,setting_feedback,setting_about,
-            setting_rate_us,setting_sign_out, setting_oss;
+    CustomTabsSession customTabsSession;
+    private LinearLayout setting_share, setting_feedback, setting_about,
+            setting_rate_us, setting_sign_out, setting_oss;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private GoogleSignInClient mGoogleSignInClient;
     //For linking
     private CustomTabsServiceConnection customTabsServiceConnection;
     private CustomTabsClient mClient;
-    CustomTabsSession customTabsSession;
 
     public FragmentSettings() {
         // Required empty public constructor
@@ -54,7 +52,7 @@ public class FragmentSettings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_settings,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -90,7 +88,7 @@ public class FragmentSettings extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto: ag1507anshul@gmail.com"));
+                intent.setData(Uri.parse("mailto: dsckiet@gmail.com"));
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Send Your Valuable Feedback :)");
                 if (intent.resolveActivity(getContext().getPackageManager()) != null) {
                     startActivity(intent);
@@ -106,7 +104,7 @@ public class FragmentSettings extends Fragment {
         OssLicensesMenuActivity.setActivityTitle("Open Source Licenses");
         //for about section
         //creating view||layout for dialog box
-        View view = getLayoutInflater().inflate(R.layout.activity_about,null);
+        View view = getLayoutInflater().inflate(R.layout.activity_about, null);
         final Dialog dialog = new Dialog(getContext(), android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen);
         dialog.setContentView(view);
         TextView websiteLink = view.findViewById(R.id.website_link);
@@ -160,7 +158,7 @@ public class FragmentSettings extends Fragment {
                                 mAuth.signOut();
                                 Intent intent = new Intent(getContext(), AuthActivity.class);
                                 startActivity(intent);
-                                getActivity().finish();
+//                                getActivity().finish();
                             }
                         });
                         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -178,7 +176,8 @@ public class FragmentSettings extends Fragment {
 
         return rootView;
     }
-    public void customTabLinking(String url){
+
+    public void customTabLinking(String url) {
         customTabsServiceConnection = new CustomTabsServiceConnection() {
             @Override
             public void onCustomTabsServiceConnected(ComponentName componentName, CustomTabsClient customTabsClient) {
@@ -194,22 +193,20 @@ public class FragmentSettings extends Fragment {
                 mClient = null;
             }
         };
-        CustomTabsClient.bindCustomTabsService(getContext(),"com.android.chrome",customTabsServiceConnection);
+        CustomTabsClient.bindCustomTabsService(getContext(), "com.android.chrome", customTabsServiceConnection);
         Uri uri = Uri.parse(url);
 
         //Create an Intent Builder
         CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
-        //Begin Customizing
-        //Set Toolbar Colors
-        intentBuilder.setToolbarColor(ContextCompat.getColor(getContext(),R.color.colorPrimary));
-        intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
+        intentBuilder.setToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
 
         //Set Start and Exit Animations
-        intentBuilder.setStartAnimations(getContext(),R.anim.slide_in_right,R.anim.slide_out_left);
-        intentBuilder.setExitAnimations(getContext(),android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+        intentBuilder.setStartAnimations(getContext(), R.anim.slide_in_right, R.anim.slide_out_left);
+        intentBuilder.setExitAnimations(getContext(), android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
         //build custom tabs intent
-        CustomTabsIntent customTabsIntent =  intentBuilder.build();
+        CustomTabsIntent customTabsIntent = intentBuilder.build();
         customTabsIntent.intent.setPackage("com.android.chrome");
         customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -217,11 +214,7 @@ public class FragmentSettings extends Fragment {
         intentBuilder.setShowTitle(true);
         intentBuilder.enableUrlBarHiding();
 
-        //Setting a custom back button
-
-
-        //launch the url
-        customTabsIntent.launchUrl(getContext(),uri);
+        customTabsIntent.launchUrl(getContext(), uri);
 
     }
 }

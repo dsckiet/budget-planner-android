@@ -96,14 +96,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //TODO:: Bottom Sheet
+        Intent get = getIntent();
+        String checkBoolean = get.getStringExtra("checkNewUser");
+        if(checkBoolean != null) {
+            BottomSheetDialog bottomSheet = new BottomSheetDialog();
+            bottomSheet.show(getSupportFragmentManager(),"Bottom Sheet");
+        }
 
         //bottom navigation
         navigationView = (BottomNavigationViewEx) findViewById(R.id.bottom_nav);
         navigationView.enableAnimation(false);
         navigationView.enableShiftingMode(true);
         navigationView.enableItemShiftingMode(false);
-//        navigationView.setItemBackground(0,R.color.colorPrimary);
-//        navigationView.setItemBackground(2,R.color.colorPrimary);
+
         navigationView.setOnNavigationItemSelectedListener(navListener);
         replaceFragment(new FragmentDashboard());
         getSupportFragmentManager()

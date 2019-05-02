@@ -11,15 +11,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,7 +29,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,24 +40,16 @@ import java.util.Map;
 public class FragmentProfile extends Fragment {
 
     private FirebaseAuth mAuth;
+    String URL_POST = "https://tranquil-coast-71727.herokuapp.com/api/v1/add_user/" + mail();
     private CardView edit_budget_card;
     private TextView profile_name_text_view, profile_mail_text_view, monthly_challenge_text_view;
     private ImageView profile_image;
     private RequestQueue mQueue;
     private CoordinatorLayout coordinatorLayout;
     private SwipeRefreshLayout profileSwipeRefresh;
-
     private String userName, userUID, userMail;
-    String URL_POST = "https://tranquil-coast-71727.herokuapp.com/api/v1/add_user/" + mail();
     private String URL_GET = "https://tranquil-coast-71727.herokuapp.com/api/v1/dashboard/" + mail();
 
-
-    public String mail() {
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        String mail = user.getEmail();
-        return mail;
-    }
 
     public FragmentProfile() {
         // Required empty public constructor
@@ -83,6 +70,13 @@ public class FragmentProfile extends Fragment {
             connected = true;
         }
         return connected;
+    }
+
+    public String mail() {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String mail = user.getEmail();
+        return mail;
     }
 
     @Override
@@ -111,12 +105,14 @@ public class FragmentProfile extends Fragment {
             }
         });
         profileSwipeRefresh.setColorSchemeColors(
-                getResources().getColor(R.color.colorAccent),getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimaryDark)
+                getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimaryDark)
         );
         edit_budget_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), EditBudgetActivity.class));
+
+                BottomSheetDialog bottomSheet = new BottomSheetDialog();
+                bottomSheet.show(getFragmentManager(),"Bottom Sheet");
             }
         });
 
@@ -128,7 +124,6 @@ public class FragmentProfile extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_POST, new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
             }
         }, new com.android.volley.Response.ErrorListener() {
             @Override

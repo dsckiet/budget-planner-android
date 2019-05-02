@@ -1,13 +1,14 @@
 package tech.dsckiet.budgetbucket;
 
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -21,15 +22,11 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditBudgetActivity extends AppCompatActivity {
-
-    private ImageView backArrow;
-    private EditText editTextBudget;
-    private CardView changeBudgetBtn;
+public class BottomSheetDialog extends BottomSheetDialogFragment {
     private FirebaseAuth mAuth;
     String URL_POST = "https://tranquil-coast-71727.herokuapp.com/api/v1/edit_user_budget/" + mail();
-    private String amount;
     private CoordinatorLayout coordinatorLayout;
+    private EditText editTextUpdateAmt;
 
     public String mail() {
         mAuth = FirebaseAuth.getInstance();
@@ -39,36 +36,28 @@ public class EditBudgetActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_budget);
-        backArrow = findViewById(R.id.back_arrow_button_edit_budget);
-        backArrow.setOnClickListener(new View.OnClickListener() {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.new_budget_bottom_sheet_layout, container, false);
+
+        CardView btnUpdate = view.findViewById(R.id.update_budget_button);
+        editTextUpdateAmt = view.findViewById(R.id.edittext_update_transaction_amount);
+        coordinatorLayout = view.findViewById(R.id.update_budget_coordinator_layout);
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-            }
-        });
-
-        editTextBudget = findViewById(R.id.editText_budget);
-        changeBudgetBtn = findViewById(R.id.change_budget_button);
-        coordinatorLayout = findViewById(R.id.edit_budget_coordinator_layout);
-
-
-        changeBudgetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (editTextBudget.getText().toString().equals("") || Integer.parseInt(editTextBudget.getText().toString()) == 0) {
+                if (editTextUpdateAmt.getText().toString().equals("") || Integer.parseInt(editTextUpdateAmt.getText().toString()) == 0) {
                     Snackbar.make(coordinatorLayout, "Budget can't be null", Snackbar.LENGTH_LONG)
                             .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
                             .setDuration(1000)
                             .show();
                 } else {
                     post();
-
                 }
             }
         });
+        return view;
     }
 
     private void post() {
@@ -79,7 +68,8 @@ public class EditBudgetActivity extends AppCompatActivity {
                         .setActionTextColor(getResources().getColor(R.color.colorGoogleRed))
                         .setDuration(1000)
                         .show();
-                editTextBudget.setText("");
+
+                dismiss();
             }
         }, new com.android.volley.Response.ErrorListener() {
             @Override
@@ -90,14 +80,14 @@ public class EditBudgetActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                amount = editTextBudget.getText().toString();
+                String amount = editTextUpdateAmt.getText().toString();
 
                 params.put("budget", amount);
                 return params;
             }
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
     }
 

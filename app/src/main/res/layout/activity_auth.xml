@@ -24,23 +24,6 @@
             android:orientation="vertical"
             android:paddingHorizontal="36dp">
 
-            <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="-6dp"-->
-            <!--android:src="@drawable/ic_arrow_back_black" />-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/sign_in_title"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="2dp"-->
-            <!--android:layout_marginBottom="24dp"-->
-            <!--android:fontFamily="@font/montserrat"-->
-            <!--android:text="Sign In"-->
-            <!--android:textSize="28sp"-->
-            <!--android:textStyle="bold" />-->
-
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="240dp"

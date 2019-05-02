@@ -26,7 +26,6 @@
 
         </activity>
         <activity android:name=".IntroductionActivity" />
-        <activity android:name=".EditBudgetActivity" />
         <activity android:name=".AddCashTransactionActivity" />
         <activity android:name=".TransactionsActivity" />
         <activity
