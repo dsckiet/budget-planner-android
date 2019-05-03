@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/add_transaction_coordinator_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="320dp"
+                android:background="@drawable/ic_illustration_one" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="36dp"
+                android:paddingTop="36dp">
+
+                <ImageView
+                    android:id="@+id/back_arrow_button_add_transaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-6dp"
+                    android:src="@drawable/ic_arrow_back_black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Add Cash Transaction"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edittext_add_transaction_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/montserrat"
+                        android:hint="Enter amount"
+                        android:inputType="number"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/text_select_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Select the type: "
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <RadioButton
+                        android:id="@+id/radio_button_online"
+                        style="@style/TextAppearance.Compat.Notification.Title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Online"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_button_offline"
+                        style="@style/TextAppearance.Compat.Notification.Title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Offline"
+                        android:textSize="16sp" />
+                </RadioGroup>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/button_add_transaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="4dp"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="#2185AB"
+                        android:fontFamily="@font/montserrat"
+                        android:padding="12dp"
+                        android:text="Add Transaction"
+                        android:textAlignment="center"
+                        android:textColor="#fff"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+        </android.support.design.widget.CoordinatorLayout>
+    </RelativeLayout>
+</ScrollView>
